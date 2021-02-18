@@ -15,6 +15,12 @@ class CreateCardsTable extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->smallInteger('order');
+
+            $table->foreignId('list_id')->constrained('card_lists')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
