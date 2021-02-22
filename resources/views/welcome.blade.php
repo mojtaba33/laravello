@@ -10,7 +10,7 @@
     </head>
     <body class="bg-green-400 box-border font-sans">
         <div id="app">
-            <board></board>
+            <router-view></router-view>
         </div>
     </body>
 </html>
