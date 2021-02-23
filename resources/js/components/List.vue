@@ -7,14 +7,15 @@
 
             <CardItem v-for="card in list.cards" :key="`card-${card.id}`" :card="card"></CardItem>
 
-        <div class="w-auto p-1 mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer">
+        <div @click="addCard" class="w-auto p-1 mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer">
             Add new card
         </div>
     </div>
 </template>
 
 <script>
-import CardItem from './CardItem'
+import CardItem from './CardItem';
+import addCard from './../graphql/AddCard.gql';
 export default {
     props:{
         list:Object,
@@ -22,6 +23,20 @@ export default {
     components:{
         CardItem
     },
+    methods:{
+        addCard()
+        {
+            this.$apollo.mutate({
+                mutation: addCard,
+                variables:{
+                    title: 'my title',
+                    list_id: this.list.id,
+                    owner_id: 1,
+                    order: 8
+                }
+            });
+        }
+    }
 }
 </script>
 
