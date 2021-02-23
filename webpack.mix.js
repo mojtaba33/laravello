@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-
+require('./graphql.mix');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -15,6 +15,7 @@ mix.js('resources/js/app.js', 'public/js').vue();
 mix.postCss('resources/css/app.css', 'public/css', [
     require("tailwindcss"),
 ]);
+mix.graphql();
 
 if (mix.inProduction()) {
     mix.version();
