@@ -18,32 +18,12 @@
     </div>
 </template>
 <script>
-import gql from 'graphql-tag';
+import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
 export default {
     apollo:{
         board:{
-            query:gql`query($id:ID!){
-                board(id:$id){
-                    id
-                    title
-                    color
-                    owner{
-                        id
-                        name
-                        email
-                    }
-                    lists{
-                        id
-                        title
-                        cards{
-                            id
-                            title
-                            order
-                        }
-                    }
-                }
-            }`,
+            query:BoardQuery,
             variables(){
                 return {
                     id: this.$route.params.id

@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 class GraphqlMix {
     dependencies() {
@@ -6,13 +6,13 @@ class GraphqlMix {
             'graphql',
             'graphql-tag'
         ]
-    },
+    }
     webpackRules() {
         return {
             test: /\.(graphql|gql)$/,
             exclude: /node_modules/,
             loader: 'graphql-tag/loader'
-        });
+        };
     }
 }
 
