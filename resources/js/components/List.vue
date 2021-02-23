@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-200 p-2 rounded-sm shadow-md mr-3 list">
         <div class="flex justify-between items-baseline w-full ">
-            <h3 class="text-black font-bold text-sm">{{ list.title }}</h3>
+            <h3 class="text-black font-bold text-sm cursor-default">{{ list.title }}</h3>
             <span class="text-gray-500 font-bold text-md hover:text-black p-1 cursor-pointer">x</span>
         </div>
 

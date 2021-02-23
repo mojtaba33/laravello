@@ -33668,7 +33668,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "bg-white p-2 mt-2 rounded-sm shadow-sm text-sm w-full" },
+    {
+      staticClass:
+        "bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-sm text-sm w-full cursor-default hover:shadow-md transition-all"
+    },
     [_vm._v(_vm._s(_vm.card.title))]
   )
 }
@@ -33703,9 +33706,11 @@ var render = function() {
         "div",
         { staticClass: "flex justify-between items-baseline w-full " },
         [
-          _c("h3", { staticClass: "text-black font-bold text-sm" }, [
-            _vm._v(_vm._s(_vm.list.title))
-          ]),
+          _c(
+            "h3",
+            { staticClass: "text-black font-bold text-sm cursor-default" },
+            [_vm._v(_vm._s(_vm.list.title))]
+          ),
           _vm._v(" "),
           _c(
             "span",
@@ -33804,9 +33809,14 @@ var render = function() {
                 " p-3 flex flex-col justify-start items-stretch pb-0 h-full overflow-y-auto"
             },
             [
-              _c("h1", { staticClass: "text-white font-bold text-lg mb-2" }, [
-                _vm._v(_vm._s(_vm.board.title))
-              ]),
+              _c(
+                "h1",
+                {
+                  staticClass:
+                    "text-white font-bold text-lg mb-2 cursor-default"
+                },
+                [_vm._v(_vm._s(_vm.board.title))]
+              ),
               _vm._v(" "),
               _c(
                 "div",

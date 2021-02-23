@@ -7,7 +7,7 @@
         </nav>
         <loading v-if="$apollo.queries.board.loading" class="mt-5"></loading>
         <section v-else class=" p-3 flex flex-col justify-start items-stretch pb-0 h-full overflow-y-auto">
-            <h1 class="text-white font-bold text-lg mb-2">{{ board.title }}</h1>
+            <h1 class="text-white font-bold text-lg mb-2 cursor-default">{{ board.title }}</h1>
             <div class="flex justify-start overflow-x-auto  items-start pb-5 h-full">
 
                 <List v-for="list in board.lists" :key="`list-${list.id}`" :list="list"></List>
