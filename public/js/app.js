@@ -7596,6 +7596,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CardItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardItem */ "./resources/js/components/CardItem.vue");
 /* harmony import */ var _graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../graphql/AddCard.gql */ "./resources/js/graphql/AddCard.gql");
 /* harmony import */ var _graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/BoardWithListsAndCards.gql */ "./resources/js/graphql/BoardWithListsAndCards.gql");
+/* harmony import */ var _graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -7611,6 +7613,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -7622,6 +7625,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addCard: function addCard() {
+      var _this = this;
+
       this.$apollo.mutate({
         mutation: (_graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_1___default()),
         variables: {
@@ -7629,6 +7634,22 @@ __webpack_require__.r(__webpack_exports__);
           list_id: this.list.id,
           owner_id: 1,
           order: 8
+        },
+        update: function update(store, _ref) {
+          var addCard = _ref.data.addCard;
+          var data = store.readQuery({
+            query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2___default()),
+            variables: {
+              id: _this.$route.params.id
+            }
+          });
+          data.board.lists.find(function (list) {
+            return list.id == _this.list.id;
+          }).cards.push(addCard);
+          store.writeQuery({
+            query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2___default()),
+            data: data
+          });
         }
       });
     }

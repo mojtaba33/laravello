@@ -16,6 +16,7 @@
 <script>
 import CardItem from './CardItem';
 import addCard from './../graphql/AddCard.gql';
+import boardQuery from './../graphql/BoardWithListsAndCards.gql';
 export default {
     props:{
         list:Object,
@@ -33,6 +34,18 @@ export default {
                     list_id: this.list.id,
                     owner_id: 1,
                     order: 8
+                },
+                update: (store , { data : { addCard } }) => {
+                    const data = store.readQuery({
+                        query: boardQuery,
+                        variables: {
+                            id: this.$route.params.id,
+                        },
+                    });
+
+                    data.board.lists.find( list => list.id == this.list.id ).cards.push(addCard);
+
+                    store.writeQuery({ query: boardQuery , data });
                 }
             });
         }
