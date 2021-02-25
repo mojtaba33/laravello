@@ -5,51 +5,32 @@
             <span class="text-gray-500 font-bold text-md hover:text-black p-1 cursor-pointer">x</span>
         </div>
 
-            <CardItem v-for="card in list.cards" :key="`card-${card.id}`" :card="card"></CardItem>
+        <CardItem v-for="card in list.cards" :key="`card-${card.id}`" :card="card"></CardItem>
 
-        <div @click="addCard" class="w-auto p-1 mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer">
+        <div v-if="!showCardEditor" @click="showCardEditor = true;" class="w-auto p-1 mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer">
             Add new card
         </div>
+        <div v-if="showCardEditor">
+            <CardEditor :list="list" @close-editor="showCardEditor = false"></CardEditor>
+        </div>
+
     </div>
 </template>
 
 <script>
 import CardItem from './CardItem';
-import addCard from './../graphql/AddCard.gql';
-import boardQuery from './../graphql/BoardWithListsAndCards.gql';
+import CardEditor from './CardEditor';
+
 export default {
     props:{
         list:Object,
     },
+    data:()=>({
+        showCardEditor : false,
+    }),
     components:{
-        CardItem
+        CardItem,CardEditor
     },
-    methods:{
-        addCard()
-        {
-            this.$apollo.mutate({
-                mutation: addCard,
-                variables:{
-                    title: 'my title',
-                    list_id: this.list.id,
-                    owner_id: 1,
-                    order: 8
-                },
-                update: (store , { data : { addCard } }) => {
-                    const data = store.readQuery({
-                        query: boardQuery,
-                        variables: {
-                            id: this.$route.params.id,
-                        },
-                    });
-
-                    data.board.lists.find( list => list.id == this.list.id ).cards.push(addCard);
-
-                    store.writeQuery({ query: boardQuery , data });
-                }
-            });
-        }
-    }
 }
 </script>
 
