@@ -4,14 +4,29 @@
         {{ card.title }}
         <div class="flex justify-end opacity-0 group-hover:opacity-100 transition-all ease-out duration-500">
             <div class="mr-1 font-bold text-gray-400 cursor-pointer hover:text-yellow-500">U</div>
-            <div class="font-bold text-gray-400 cursor-pointer hover:text-red-500">D</div>
+            <div class="font-bold text-gray-400 cursor-pointer hover:text-red-500" @click="deleteCard">D</div>
         </div>
     </div>
 </template>
 <script>
+import deleteCardQuery from './../graphql/DeleteCard.gql'
 export default {
     props:{
         card:Object
-    }
+    },
+    methods: {
+        deleteCard()
+        {
+            this.$apollo.mutate({
+                mutation: deleteCardQuery,
+                variables: {
+                    id: this.card.id
+                },
+                update:()=>{
+
+                }
+            });
+        }
+    },
 }
 </script>
