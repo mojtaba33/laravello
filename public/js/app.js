@@ -7698,6 +7698,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     card: Object
@@ -34867,12 +34874,44 @@ var render = function() {
     "div",
     {
       staticClass:
-        "bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-sm text-sm w-full cursor-default hover:shadow-md transition-all"
+        "group bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-sm text-sm\nw-full cursor-default hover:shadow-md flex justify-between transition-all ease-out duration-500"
     },
-    [_vm._v(_vm._s(_vm.card.title))]
+    [_vm._v("\n    " + _vm._s(_vm.card.title) + "\n    "), _vm._m(0)]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "flex justify-end opacity-0 group-hover:opacity-100 transition-all ease-out duration-500"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "mr-1 font-bold text-gray-400 cursor-pointer hover:text-yellow-500"
+          },
+          [_vm._v("U")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "font-bold text-gray-400 cursor-pointer hover:text-red-500"
+          },
+          [_vm._v("D")]
+        )
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
