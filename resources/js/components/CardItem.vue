@@ -9,6 +9,7 @@
     </div>
 </template>
 <script>
+import { CARD_DELETED_EVENT } from '../query-events';
 import deleteCardQuery from './../graphql/DeleteCard.gql'
 export default {
     props:{
@@ -22,8 +23,12 @@ export default {
                 variables: {
                     id: this.card.id
                 },
-                update:()=>{
-
+                update:(store,{data:{deleteCard}})=>{
+                    this.$emit('card-deleted',{
+                        card : deleteCard,
+                        store,
+                        type:CARD_DELETED_EVENT
+                    });
                 }
             });
         }

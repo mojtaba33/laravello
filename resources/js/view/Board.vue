@@ -12,6 +12,7 @@
 
                 <List v-for="list in board.lists" :key="`list-${list.id}`" :list="list"
                     @card-added="updateQueryCache"
+                    @card-deleted="updateQueryCache"
                 ></List>
 
             </div>
@@ -22,7 +23,7 @@
 <script>
 import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
-import { CARD_ADDED_EVENT } from '../query-events';
+import { CARD_ADDED_EVENT, CARD_DELETED_EVENT } from '../query-events';
 export default {
     apollo:{
         board:{
@@ -47,9 +48,14 @@ export default {
                 },
             });
 
+            const list = data.board.lists.find( list => list.id == event.list_id );
+
             switch (event.type) {
                 case CARD_ADDED_EVENT:
-                    data.board.lists.find( list => list.id == event.list_id ).cards.push(event.addCard);
+                    list.cards.push(event.addCard);
+                    break;
+                case CARD_DELETED_EVENT:
+                    list.cards = list.cards.filter( card => card.id != event.card.id );
                     break;
             }
 

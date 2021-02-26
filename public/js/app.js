@@ -7687,8 +7687,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../graphql/DeleteCard.gql */ "./resources/js/graphql/DeleteCard.gql");
-/* harmony import */ var _graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../query-events */ "./resources/js/query-events.js");
+/* harmony import */ var _graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../graphql/DeleteCard.gql */ "./resources/js/graphql/DeleteCard.gql");
+/* harmony import */ var _graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -7700,18 +7701,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     card: Object
   },
   methods: {
     deleteCard: function deleteCard() {
+      var _this = this;
+
       this.$apollo.mutate({
-        mutation: (_graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_0___default()),
+        mutation: (_graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_1___default()),
         variables: {
           id: this.card.id
         },
-        update: function update() {}
+        update: function update(store, _ref) {
+          var deleteCard = _ref.data.deleteCard;
+
+          _this.$emit('card-deleted', {
+            card: deleteCard,
+            store: store,
+            type: _query_events__WEBPACK_IMPORTED_MODULE_0__.CARD_DELETED_EVENT
+          });
+        }
       });
     }
   }
@@ -7825,6 +7837,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -7850,12 +7863,19 @@ __webpack_require__.r(__webpack_exports__);
           id: this.$route.params.id
         }
       });
+      var list = data.board.lists.find(function (list) {
+        return list.id == event.list_id;
+      });
 
       switch (event.type) {
         case _query_events__WEBPACK_IMPORTED_MODULE_2__.CARD_ADDED_EVENT:
-          data.board.lists.find(function (list) {
-            return list.id == event.list_id;
-          }).cards.push(event.addCard);
+          list.cards.push(event.addCard);
+          break;
+
+        case _query_events__WEBPACK_IMPORTED_MODULE_2__.CARD_DELETED_EVENT:
+          list.cards = list.cards.filter(function (card) {
+            return card.id != event.card.id;
+          });
           break;
       }
 
@@ -8436,8 +8456,8 @@ module.exports = function (data, opts) {
 /***/ ((module) => {
 
 
-    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"title"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":64}};
-    doc.loc.source = {"body":"mutation($id:ID!){\n  deleteCard(id:$id){\n    id\n    title\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":54}};
+    doc.loc.source = {"body":"mutation($id:ID!){\n  deleteCard(id:$id){\n    id\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
   
 
     var names = {};
@@ -35137,7 +35157,18 @@ var render = function() {
       ),
       _vm._v(" "),
       _vm._l(_vm.list.cards, function(card) {
-        return _c("CardItem", { key: "card-" + card.id, attrs: { card: card } })
+        return _c("CardItem", {
+          key: "card-" + card.id,
+          attrs: { card: card },
+          on: {
+            "card-deleted": function($event) {
+              return _vm.$emit(
+                "card-deleted",
+                Object.assign({}, $event, { list_id: _vm.list.id })
+              )
+            }
+          }
+        })
       }),
       _vm._v(" "),
       !_vm.showCardEditor
@@ -35270,7 +35301,10 @@ var render = function() {
                   return _c("List", {
                     key: "list-" + list.id,
                     attrs: { list: list },
-                    on: { "card-added": _vm.updateQueryCache }
+                    on: {
+                      "card-added": _vm.updateQueryCache,
+                      "card-deleted": _vm.updateQueryCache
+                    }
                   })
                 }),
                 1
