@@ -13,7 +13,7 @@
 
 <script>
 import addCard from './../graphql/AddCard.gql';
-import boardQuery from './../graphql/BoardWithListsAndCards.gql';
+import {CARD_ADDED_EVENT} from './../query-events'
 export default {
     props:{
         list:Object,
@@ -38,16 +38,9 @@ export default {
                     order: this.list.cards.length + 1
                 },
                 update: (store , { data : { addCard } }) => {
-                    const data = store.readQuery({
-                        query: boardQuery,
-                        variables: {
-                            id: this.$route.params.id,
-                        },
+                    this.$emit("card-added",{
+                        addCard,store,type: CARD_ADDED_EVENT
                     });
-
-                    data.board.lists.find( list => list.id == this.list.id ).cards.push(addCard);
-
-                    store.writeQuery({ query: boardQuery , data });
                 }
             });
             this.closeEditor();

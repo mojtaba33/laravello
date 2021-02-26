@@ -11,7 +11,7 @@
             Add new card
         </div>
         <div v-if="showCardEditor">
-            <CardEditor :list="list" @close-editor="showCardEditor = false"></CardEditor>
+            <CardEditor :list="list" @close-editor="showCardEditor = false"  @card-added="$emit('card-added',{...$event,list_id:list.id})"></CardEditor>
         </div>
 
     </div>

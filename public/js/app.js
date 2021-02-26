@@ -7586,8 +7586,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../graphql/AddCard.gql */ "./resources/js/graphql/AddCard.gql");
 /* harmony import */ var _graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/BoardWithListsAndCards.gql */ "./resources/js/graphql/BoardWithListsAndCards.gql");
-/* harmony import */ var _graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../query-events */ "./resources/js/query-events.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7643,18 +7642,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   },
                   update: function update(store, _ref) {
                     var addCard = _ref.data.addCard;
-                    var data = store.readQuery({
-                      query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2___default()),
-                      variables: {
-                        id: _this.$route.params.id
-                      }
-                    });
-                    data.board.lists.find(function (list) {
-                      return list.id == _this.list.id;
-                    }).cards.push(addCard);
-                    store.writeQuery({
-                      query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_2___default()),
-                      data: data
+
+                    _this.$emit("card-added", {
+                      addCard: addCard,
+                      store: store,
+                      type: _query_events__WEBPACK_IMPORTED_MODULE_2__.CARD_ADDED_EVENT
                     });
                   }
                 });
@@ -7811,6 +7803,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../graphql/BoardWithListsAndCards.gql */ "./resources/js/graphql/BoardWithListsAndCards.gql");
 /* harmony import */ var _graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_List__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../components/List */ "./resources/js/components/List.vue");
+/* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../query-events */ "./resources/js/query-events.js");
 //
 //
 //
@@ -7830,6 +7823,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -7845,6 +7841,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     List: _components_List__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  methods: {
+    updateQueryCache: function updateQueryCache(event) {
+      var data = event.store.readQuery({
+        query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
+        variables: {
+          id: this.$route.params.id
+        }
+      });
+
+      switch (event.type) {
+        case _query_events__WEBPACK_IMPORTED_MODULE_2__.CARD_ADDED_EVENT:
+          data.board.lists.find(function (list) {
+            return list.id == event.list_id;
+          }).cards.push(event.addCard);
+          break;
+      }
+
+      event.store.writeQuery({
+        query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
+        data: data
+      });
+    }
   }
 });
 
@@ -7927,6 +7946,23 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/query-events.js":
+/*!**************************************!*\
+  !*** ./resources/js/query-events.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CARD_ADDED_EVENT": () => (/* binding */ CARD_ADDED_EVENT),
+/* harmony export */   "CARD_DELETED_EVENT": () => (/* binding */ CARD_DELETED_EVENT)
+/* harmony export */ });
+var CARD_ADDED_EVENT = "CARD_ADDED_EVENT";
+var CARD_DELETED_EVENT = "CARD_DELETED_EVENT";
 
 /***/ }),
 
@@ -35129,6 +35165,12 @@ var render = function() {
                 on: {
                   "close-editor": function($event) {
                     _vm.showCardEditor = false
+                  },
+                  "card-added": function($event) {
+                    return _vm.$emit(
+                      "card-added",
+                      Object.assign({}, $event, { list_id: _vm.list.id })
+                    )
                   }
                 }
               })
@@ -35227,7 +35269,8 @@ var render = function() {
                 _vm._l(_vm.board.lists, function(list) {
                   return _c("List", {
                     key: "list-" + list.id,
-                    attrs: { list: list }
+                    attrs: { list: list },
+                    on: { "card-added": _vm.updateQueryCache }
                   })
                 }),
                 1

@@ -10,7 +10,9 @@
             <h1 class="text-white font-bold text-lg mb-2 cursor-default">{{ board.title }}</h1>
             <div class="flex justify-start overflow-x-auto  items-start pb-5 h-full">
 
-                <List v-for="list in board.lists" :key="`list-${list.id}`" :list="list"></List>
+                <List v-for="list in board.lists" :key="`list-${list.id}`" :list="list"
+                    @card-added="updateQueryCache"
+                ></List>
 
             </div>
 
@@ -20,6 +22,7 @@
 <script>
 import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
+import { CARD_ADDED_EVENT } from '../query-events';
 export default {
     apollo:{
         board:{
@@ -33,6 +36,25 @@ export default {
     },
     components:{
         List
-    }
+    },
+    methods: {
+        updateQueryCache(event)
+        {
+            const data = event.store.readQuery({
+                query: BoardQuery,
+                variables: {
+                    id: this.$route.params.id,
+                },
+            });
+
+            switch (event.type) {
+                case CARD_ADDED_EVENT:
+                    data.board.lists.find( list => list.id == event.list_id ).cards.push(event.addCard);
+                    break;
+            }
+
+            event.store.writeQuery({ query: BoardQuery , data });
+        }
+    },
 }
 </script>
