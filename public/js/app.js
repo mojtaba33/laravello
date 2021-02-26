@@ -35074,7 +35074,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "group bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-sm text-sm\nw-full cursor-default hover:shadow-md flex justify-between transition-all ease-out duration-500"
+        "group bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-card text-sm\nw-full cursor-default hover:shadow-md flex justify-between transition-all ease-out duration-500"
     },
     [
       _vm._v("\n    " + _vm._s(_vm.card.title) + "\n    "),

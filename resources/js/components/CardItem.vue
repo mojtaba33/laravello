@@ -1,5 +1,5 @@
 <template>
-    <div class="group bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-sm text-sm
+    <div class="group bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-card text-sm
     w-full cursor-default hover:shadow-md flex justify-between transition-all ease-out duration-500">
         {{ card.title }}
         <div class="flex justify-end opacity-0 group-hover:opacity-100 transition-all ease-out duration-500">
