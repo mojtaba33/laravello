@@ -11,8 +11,9 @@ type Query {
 }
 
 type Mutation {
-    addCard(input:addCardData! @spread): Card! @create
+    addCard(input:addCardInput! @spread): Card! @create
     deleteCard(id: ID!): Card! @delete
+    updateCard(id: ID!,title: String): Card! @update
 }
 
 type User {
@@ -52,7 +53,7 @@ type CardList {
     updated_at: DateTime!
 }
 
-input addCardData {
+input addCardInput {
     title: String!
     list_id: ID!
     owner_id: ID!
