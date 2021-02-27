@@ -11,7 +11,7 @@
             Add new card
         </div>
         <div v-if="showCardEditor">
-            <CardEditor :list="list" @close-editor="showCardEditor = false"  @card-added="$emit('card-added',{...$event,list_id:list.id})"></CardEditor>
+            <CardAddEditor :list="list" @close-editor="showCardEditor = false"  @card-added="$emit('card-added',{...$event,list_id:list.id})"></CardAddEditor>
         </div>
 
     </div>
@@ -19,7 +19,7 @@
 
 <script>
 import CardItem from './CardItem';
-import CardEditor from './CardEditor';
+import CardAddEditor from './CardAddEditor';
 
 export default {
     props:{
@@ -29,7 +29,7 @@ export default {
         showCardEditor : false,
     }),
     components:{
-        CardItem,CardEditor
+        CardItem,CardAddEditor
     },
 }
 </script>
