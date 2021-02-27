@@ -7698,7 +7698,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['value'],
+  props: ['value', 'label'],
   mounted: function mounted() {
     this.$refs.editor.focus();
   },
@@ -7728,6 +7728,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../query-events */ "./resources/js/query-events.js");
 /* harmony import */ var _graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../graphql/DeleteCard.gql */ "./resources/js/graphql/DeleteCard.gql");
 /* harmony import */ var _graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_graphql_DeleteCard_gql__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _CardUpdateEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardUpdateEditor */ "./resources/js/components/CardUpdateEditor.vue");
 //
 //
 //
@@ -7738,11 +7739,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     card: Object
+  },
+  data: function data() {
+    return {
+      showEditor: false
+    };
+  },
+  components: {
+    CardUpdateEditor: _CardUpdateEditor__WEBPACK_IMPORTED_MODULE_2__.default
   },
   methods: {
     deleteCard: function deleteCard() {
@@ -7763,6 +7779,108 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CardUpdateEditor.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CardUpdateEditor.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _CardEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardEditor */ "./resources/js/components/CardEditor.vue");
+/* harmony import */ var _graphql_UpdateCard_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/UpdateCard.gql */ "./resources/js/graphql/UpdateCard.gql");
+/* harmony import */ var _graphql_UpdateCard_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_UpdateCard_gql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../query-events */ "./resources/js/query-events.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    card: Object
+  },
+  components: {
+    CardEditor: _CardEditor__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  mounted: function mounted() {
+    this.title = this.card.title;
+  },
+  data: function data() {
+    return {
+      title: null,
+      loading: false
+    };
+  },
+  methods: {
+    updateCard: function updateCard() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.loading = true;
+                _context.next = 3;
+                return _this.$apollo.mutate({
+                  mutation: (_graphql_UpdateCard_gql__WEBPACK_IMPORTED_MODULE_2___default()),
+                  variables: {
+                    id: _this.card.id,
+                    title: _this.title
+                  },
+                  update: function update(store, _ref) {
+                    var updateCard = _ref.data.updateCard;
+
+                    _this.$emit("card-updated", {
+                      card: updateCard,
+                      store: store,
+                      type: _query_events__WEBPACK_IMPORTED_MODULE_3__.CARD_UPDATED_EVENT
+                    });
+                  }
+                });
+
+              case 3:
+                _this.closeEditor();
+
+                _this.title = null;
+                _this.loading = false;
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    closeEditor: function closeEditor() {
+      this.$emit('close-editor');
     }
   }
 });
@@ -7915,6 +8033,13 @@ __webpack_require__.r(__webpack_exports__);
             return card.id != event.card.id;
           });
           break;
+
+        case _query_events__WEBPACK_IMPORTED_MODULE_2__.CARD_UPDATED_EVENT:
+          var card = list.cards.find(function (card) {
+            return card.id == event.card.id;
+          });
+          card.title = event.card.title;
+          break;
       }
 
       event.store.writeQuery({
@@ -8017,10 +8142,12 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CARD_ADDED_EVENT": () => (/* binding */ CARD_ADDED_EVENT),
-/* harmony export */   "CARD_DELETED_EVENT": () => (/* binding */ CARD_DELETED_EVENT)
+/* harmony export */   "CARD_DELETED_EVENT": () => (/* binding */ CARD_DELETED_EVENT),
+/* harmony export */   "CARD_UPDATED_EVENT": () => (/* binding */ CARD_UPDATED_EVENT)
 /* harmony export */ });
 var CARD_ADDED_EVENT = "CARD_ADDED_EVENT";
 var CARD_DELETED_EVENT = "CARD_DELETED_EVENT";
+var CARD_UPDATED_EVENT = "CARD_UPDATED_EVENT";
 
 /***/ }),
 
@@ -8613,6 +8740,138 @@ module.exports = function (data, opts) {
 
     module.exports = doc;
     
+
+
+/***/ }),
+
+/***/ "./resources/js/graphql/UpdateCard.gql":
+/*!*********************************************!*\
+  !*** ./resources/js/graphql/UpdateCard.gql ***!
+  \*********************************************/
+/***/ ((module) => {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCard"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}},{"kind":"Argument","name":{"kind":"Name","value":"title"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"title"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"order"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":114}};
+    doc.loc.source = {"body":"mutation UpdateCard($id:ID!,$title:String)\n{\n  updateCard(id:$id,title:$title){\n    id\n    title\n    order\n  }\n}#\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports.UpdateCard = oneQuery(doc, "UpdateCard");
+        
 
 
 /***/ }),
@@ -34735,6 +34994,45 @@ component.options.__file = "resources/js/components/CardItem.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/CardUpdateEditor.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/CardUpdateEditor.vue ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CardUpdateEditor_vue_vue_type_template_id_1bf17b9e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardUpdateEditor.vue?vue&type=template&id=1bf17b9e& */ "./resources/js/components/CardUpdateEditor.vue?vue&type=template&id=1bf17b9e&");
+/* harmony import */ var _CardUpdateEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardUpdateEditor.vue?vue&type=script&lang=js& */ "./resources/js/components/CardUpdateEditor.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _CardUpdateEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _CardUpdateEditor_vue_vue_type_template_id_1bf17b9e___WEBPACK_IMPORTED_MODULE_0__.render,
+  _CardUpdateEditor_vue_vue_type_template_id_1bf17b9e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CardUpdateEditor.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/List.vue":
 /*!******************************************!*\
   !*** ./resources/js/components/List.vue ***!
@@ -34902,6 +35200,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/CardUpdateEditor.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/CardUpdateEditor.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUpdateEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CardUpdateEditor.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CardUpdateEditor.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUpdateEditor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/List.vue?vue&type=script&lang=js&":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/List.vue?vue&type=script&lang=js& ***!
@@ -35014,6 +35328,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/CardUpdateEditor.vue?vue&type=template&id=1bf17b9e&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/CardUpdateEditor.vue?vue&type=template&id=1bf17b9e& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUpdateEditor_vue_vue_type_template_id_1bf17b9e___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUpdateEditor_vue_vue_type_template_id_1bf17b9e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardUpdateEditor_vue_vue_type_template_id_1bf17b9e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CardUpdateEditor.vue?vue&type=template&id=1bf17b9e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CardUpdateEditor.vue?vue&type=template&id=1bf17b9e&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/List.vue?vue&type=template&id=1856aeee&scoped=true&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/List.vue?vue&type=template&id=1856aeee&scoped=true& ***!
@@ -35087,6 +35418,7 @@ var render = function() {
           "div",
           [
             _c("CardEditor", {
+              attrs: { label: "Add Card" },
               on: { save: _vm.addCard, cancel: _vm.closeEditor },
               model: {
                 value: _vm.title,
@@ -35169,7 +35501,7 @@ var render = function() {
           }
         }
       },
-      [_vm._v("Add Card")]
+      [_vm._v(_vm._s(_vm.label))]
     ),
     _vm._v(" "),
     _c(
@@ -35208,41 +35540,113 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "group bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-card text-sm\nw-full cursor-default hover:shadow-md flex justify-between transition-all ease-out duration-500"
-    },
     [
-      _vm._v("\n    " + _vm._s(_vm.card.title) + "\n    "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "flex justify-end opacity-0 group-hover:opacity-100 transition-all ease-out duration-500"
-        },
-        [
-          _c(
+      !_vm.showEditor
+        ? _c(
             "div",
             {
               staticClass:
-                "mr-1 font-bold text-gray-400 cursor-pointer hover:text-yellow-500"
+                "group bg-white hover:text-black text-gray-900 p-2 mt-2 rounded-sm shadow-card text-sm\n    w-full cursor-default hover:shadow-md flex justify-between transition-all ease-out duration-500"
             },
-            [_vm._v("U")]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "font-bold text-gray-400 cursor-pointer hover:text-red-500",
-              on: { click: _vm.deleteCard }
-            },
-            [_vm._v("D")]
+            [
+              _vm._v("\n        " + _vm._s(_vm.card.title) + "\n        "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "flex justify-end opacity-0 group-hover:opacity-100 transition-all ease-out duration-500"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "mr-1 font-bold text-gray-400 cursor-pointer hover:text-yellow-500",
+                      on: {
+                        click: function($event) {
+                          _vm.showEditor = true
+                        }
+                      }
+                    },
+                    [_vm._v("U")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "font-bold text-gray-400 cursor-pointer hover:text-red-500",
+                      on: { click: _vm.deleteCard }
+                    },
+                    [_vm._v("D")]
+                  )
+                ]
+              )
+            ]
           )
-        ]
-      )
-    ]
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showEditor
+        ? _c("CardUpdateEditor", {
+            attrs: { card: _vm.card },
+            on: {
+              "close-editor": function($event) {
+                _vm.showEditor = false
+              },
+              "card-updated": function($event) {
+                return _vm.$emit("card-updated")
+              }
+            }
+          })
+        : _vm._e()
+    ],
+    1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CardUpdateEditor.vue?vue&type=template&id=1bf17b9e&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/CardUpdateEditor.vue?vue&type=template&id=1bf17b9e& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    !_vm.loading
+      ? _c(
+          "div",
+          [
+            _c("CardEditor", {
+              attrs: { label: "Save Card" },
+              on: { save: _vm.updateCard, cancel: _vm.closeEditor },
+              model: {
+                value: _vm.title,
+                callback: function($$v) {
+                  _vm.title = $$v
+                },
+                expression: "title"
+              }
+            })
+          ],
+          1
+        )
+      : _c("div", [_c("loading", { staticClass: "w-5 h-5 mt-2" })], 1)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -35297,6 +35701,12 @@ var render = function() {
           key: "card-" + card.id,
           attrs: { card: card },
           on: {
+            "card-updated": function($event) {
+              return _vm.$emit(
+                "card-updated",
+                Object.assign({}, $event, { list_id: _vm.list.id })
+              )
+            },
             "card-deleted": function($event) {
               return _vm.$emit(
                 "card-deleted",

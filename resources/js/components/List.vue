@@ -5,7 +5,7 @@
             <span class="text-gray-500 font-bold text-md hover:text-black p-1 cursor-pointer">x</span>
         </div>
 
-        <CardItem v-for="card in list.cards" :key="`card-${card.id}`" :card="card" @card-deleted="$emit('card-deleted',{...$event,list_id:list.id})"></CardItem>
+        <CardItem v-for="card in list.cards" :key="`card-${card.id}`" :card="card" @card-updated="$emit('card-updated',{...$event,list_id:list.id})" @card-deleted="$emit('card-deleted',{...$event,list_id:list.id})"></CardItem>
 
         <div v-if="!showCardEditor" @click="showCardEditor = true;" class="w-auto p-1 mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer">
             Add new card

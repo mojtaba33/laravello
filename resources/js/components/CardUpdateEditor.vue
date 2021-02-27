@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="!loading">
-            <CardEditor v-model="title" @save="addCard" @cancel="closeEditor" label="Add Card"></CardEditor>
+            <CardEditor v-model="title" @save="updateCard" @cancel="closeEditor" label="Save Card"></CardEditor>
         </div>
         <div v-else>
             <loading class="w-5 h-5 mt-2"></loading>
@@ -10,34 +10,37 @@
 </template>
 <script>
 import CardEditor from './CardEditor';
-import addCard from './../graphql/AddCard.gql';
-import {CARD_ADDED_EVENT} from './../query-events'
+import UpdateCard from './../graphql/UpdateCard.gql';
+import {CARD_UPDATED_EVENT} from './../query-events'
 export default {
     props:{
-        list:Object,
+        card:Object
     },
     components:{
         CardEditor
     },
+    mounted() {
+        this.title = this.card.title
+    },
     data:()=>({
-        title:null,
-        loading:false
+        title : null,
+        loading : false
     }),
     methods:{
-        async addCard()
+        async updateCard()
         {
             this.loading = true;
             await this.$apollo.mutate({
-                mutation: addCard,
+                mutation: UpdateCard,
                 variables:{
-                    title: this.title,
-                    list_id: this.list.id,
-                    owner_id: 1,
-                    order: this.list.cards.length + 1
+                    id: this.card.id,
+                    title: this.title
                 },
-                update: (store , { data : { addCard } }) => {
-                    this.$emit("card-added",{
-                        addCard,store,type: CARD_ADDED_EVENT
+                update: (store , { data : { updateCard } }) => {
+                    this.$emit("card-updated",{
+                        card:updateCard,
+                        store,
+                        type: CARD_UPDATED_EVENT
                     });
                 }
             });

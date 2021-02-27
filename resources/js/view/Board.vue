@@ -23,7 +23,7 @@
 <script>
 import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
-import { CARD_ADDED_EVENT, CARD_DELETED_EVENT } from '../query-events';
+import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT } from '../query-events';
 export default {
     apollo:{
         board:{
@@ -56,6 +56,10 @@ export default {
                     break;
                 case CARD_DELETED_EVENT:
                     list.cards = list.cards.filter( card => card.id != event.card.id );
+                    break;
+                case CARD_UPDATED_EVENT:
+                    let card = list.cards.find(card => card.id == event.card.id);
+                    card.title = event.card.title;
                     break;
             }
 
