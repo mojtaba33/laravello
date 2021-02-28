@@ -8177,7 +8177,11 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vue_apollo__WEBPACK_IMPORTED_MODULE_0__.default);
 var apolloClient = new apollo_boost__WEBPACK_IMPORTED_MODULE_2__.default({
-  uri: 'http://localhost:8000/graphql'
+  uri: 'http://localhost:8000/graphql',
+  headers: {
+    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+  },
+  credentials: 'include'
 });
 var apolloProvider = new vue_apollo__WEBPACK_IMPORTED_MODULE_0__.default({
   defaultClient: apolloClient
