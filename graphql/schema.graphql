@@ -15,8 +15,13 @@ type Mutation {
     deleteCard(id: ID!): Card! @delete
     updateCard(id: ID!,title: String): Card! @update
 
-    login(email:String!,password:String!): User!
+    login(email:String @rules(apply:["required","string"]),password:String @rules(apply:["required","string"])): User!
     logout: User @guard
+    register(
+        name:String @rules(apply:["required","string","min:2"]),
+        email:String @rules(apply:["required","string","max:255","email","unique:users"]),
+        password:String @rules(apply:["required","string","min:8","confirmed"])
+        ): User! @create
 }
 
 type User {

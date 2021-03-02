@@ -2,10 +2,14 @@ import './bootstrap';
 import Vue from 'vue';
 import {apolloProvider} from './apollo';
 import {router} from './routes';
-import Loading from './components/global/Loading'
+import Loading from './components/global/Loading';
+import ValidationErr from './components/global/ValidationErr';
+import showError from './components/global/showError';
 
 window.Vue = Vue;
 Vue.component("loading",Loading);
+Vue.component("validation-err",ValidationErr);
+Vue.component("show-error",showError);
 
 const app = new Vue({
     el: '#app',
