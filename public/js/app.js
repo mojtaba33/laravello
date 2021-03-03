@@ -8244,6 +8244,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utility.js */ "./resources/js/utility.js");
+/* harmony import */ var _graphql_Register_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/Register.gql */ "./resources/js/graphql/Register.gql");
+/* harmony import */ var _graphql_Register_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_Register_gql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _mixins_errors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../mixins/errors */ "./resources/js/mixins/errors.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -8283,7 +8295,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [_mixins_errors__WEBPACK_IMPORTED_MODULE_3__.default],
+  data: function data() {
+    return {
+      name: null,
+      email: null,
+      password: null,
+      password_confirmation: null,
+      disabled: false
+    };
+  },
+  methods: {
+    register: function register() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.validationErr = null;
+                _this.errors = null;
+                _this.disabled = true;
+                _context.prev = 3;
+                _context.next = 6;
+                return _this.$apollo.mutate({
+                  mutation: (_graphql_Register_gql__WEBPACK_IMPORTED_MODULE_2___default()),
+                  variables: {
+                    name: _this.name,
+                    email: _this.email,
+                    password: _this.password,
+                    password_confirmation: _this.password_confirmation
+                  }
+                });
+
+              case 6:
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](3);
+
+                _this.errorHandler((0,_utility_js__WEBPACK_IMPORTED_MODULE_1__.gqlError)(_context.t0));
+
+              case 11:
+                _this.disabled = false;
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[3, 8]]);
+      }))();
+    }
+  },
   beforeCreate: function beforeCreate() {
     document.querySelector('body').style.backgroundColor = "#FFF";
   }
@@ -8395,8 +8472,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      errors: [],
-      validationErr: []
+      errors: null,
+      validationErr: null
     };
   },
   methods: {
@@ -8408,6 +8485,9 @@ __webpack_require__.r(__webpack_exports__);
       if (errors.validation) {
         this.validationErr = errors.validation.message;
       }
+    },
+    inputHasErr: function inputHasErr(input) {
+      return this.validationErr ? this.validationErr[input] : false;
     }
   }
 });
@@ -9221,6 +9301,138 @@ module.exports = function (data, opts) {
     module.exports = doc;
     
         module.exports.Login = oneQuery(doc, "Login");
+        
+
+
+/***/ }),
+
+/***/ "./resources/js/graphql/Register.gql":
+/*!*******************************************!*\
+  !*** ./resources/js/graphql/Register.gql ***!
+  \*******************************************/
+/***/ ((module) => {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Register"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password_confirmation"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"register"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}},{"kind":"Argument","name":{"kind":"Name","value":"password_confirmation"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password_confirmation"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"email"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":231}};
+    doc.loc.source = {"body":"mutation Register($name:String,$email:String,$password:String,$password_confirmation:String)\n{\n  register(name:$name,email:$email,password:$password,password_confirmation:$password_confirmation)\n  {\n    id\n    name\n    email\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports.Register = oneQuery(doc, "Register");
         
 
 
@@ -36585,7 +36797,7 @@ var render = function() {
     _vm._l(_vm.error, function(err, i) {
       return _c(
         "div",
-        { key: "valid-err-" + i, staticClass: "text-sm text-red-400" },
+        { key: "valid-err-" + i, staticClass: "text-xs text-red-400" },
         [_vm._v(_vm._s(err))]
       )
     }),
@@ -36797,6 +37009,7 @@ var render = function() {
                     ],
                     staticClass:
                       "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
+                    class: { "border-red-300": _vm.inputHasErr("email") },
                     attrs: { type: "text", placeholder: "Enter email" },
                     domProps: { value: _vm.email },
                     on: {
@@ -36834,6 +37047,7 @@ var render = function() {
                     ],
                     staticClass:
                       "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
+                    class: { "border-red-300": _vm.inputHasErr("password") },
                     attrs: { type: "password", placeholder: "Enter password" },
                     domProps: { value: _vm.password },
                     on: {
@@ -36920,7 +37134,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex justify-center items-start" }, [
-    _c("div", { staticClass: "sm:w-96 w-72 sm:mt-24 mt-5 text-center" }, [
+    _c("div", { staticClass: "sm:w-96 w-72 sm:mt-20 mt-5 text-center" }, [
       _c(
         "h1",
         {
@@ -36938,15 +37152,173 @@ var render = function() {
             _vm._v("Register at Laravello")
           ]),
           _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _vm._m(4),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.register($event)
+                }
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "mt-6 w-full" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name"
+                      }
+                    ],
+                    staticClass:
+                      "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
+                    class: { "border-red-300": _vm.inputHasErr("name") },
+                    attrs: { type: "text", placeholder: "Enter full name" },
+                    domProps: { value: _vm.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.validationErr
+                    ? _c("validation-err", {
+                        staticClass: "text-left w-5/6 sm:w-3/4 mx-auto",
+                        attrs: { error: _vm.validationErr.name }
+                      })
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "mt-4 w-full" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.email,
+                        expression: "email"
+                      }
+                    ],
+                    staticClass:
+                      "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
+                    class: { "border-red-300": _vm.inputHasErr("email") },
+                    attrs: { type: "text", placeholder: "Enter email" },
+                    domProps: { value: _vm.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.email = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.validationErr
+                    ? _c("validation-err", {
+                        staticClass: "text-left w-5/6 sm:w-3/4 mx-auto",
+                        attrs: { error: _vm.validationErr.email }
+                      })
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "mt-4 w-full" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.password,
+                        expression: "password"
+                      }
+                    ],
+                    staticClass:
+                      "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
+                    class: { "border-red-300": _vm.inputHasErr("password") },
+                    attrs: { type: "password", placeholder: "Enter password" },
+                    domProps: { value: _vm.password },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.password = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.validationErr
+                    ? _c("validation-err", {
+                        staticClass: "text-left w-5/6 sm:w-3/4 mx-auto",
+                        attrs: { error: _vm.validationErr.password }
+                      })
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-4 w-full" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.password_confirmation,
+                      expression: "password_confirmation"
+                    }
+                  ],
+                  staticClass:
+                    "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
+                  attrs: { type: "password", placeholder: "Repeat password" },
+                  domProps: { value: _vm.password_confirmation },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.password_confirmation = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-8 w-full" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "py-1 px-3 text-white font-bold text-sm outline-none focus:outline-none rounded-sm bg-indigo-600 hover:bg-indigo-500 transition-colors duration-300 w-5/6 sm:w-3/4 disabled:opacity-30",
+                    attrs: {
+                      type: "submit",
+                      placeholder: "Enter password",
+                      disabled: _vm.disabled
+                    }
+                  },
+                  [_vm._v("Register")]
+                )
+              ])
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -36969,72 +37341,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-6 w-full" }, [
-      _c("input", {
-        staticClass:
-          "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
-        attrs: { type: "text", placeholder: "Enter full name" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-6 w-full" }, [
-      _c("input", {
-        staticClass:
-          "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
-        attrs: { type: "text", placeholder: "Enter email" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-6 w-full" }, [
-      _c("input", {
-        staticClass:
-          "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
-        attrs: { type: "password", placeholder: "Enter password" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-6 w-full" }, [
-      _c("input", {
-        staticClass:
-          "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
-        attrs: { type: "password", placeholder: "Repeat password" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-8 w-full" }, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "py-1 px-3 text-white font-bold text-sm outline-none focus:outline-none rounded-sm bg-indigo-600 hover:bg-indigo-500 transition-colors duration-300 w-5/6 sm:w-3/4 disabled:opacity-30",
-          attrs: { type: "submit", placeholder: "Enter password" }
-        },
-        [_vm._v("Register")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -1,7 +1,7 @@
 export default {
     data:() => ({
-        errors : [],
-        validationErr : [],
+        errors : null,
+        validationErr : null,
     }),
     methods: {
         errorHandler(errors)
@@ -14,6 +14,10 @@ export default {
             {
                 this.validationErr = errors.validation.message;
             }
+        },
+        inputHasErr(input)
+        {
+            return this.validationErr ? this.validationErr[input] : false
         }
     }
 }
