@@ -4,7 +4,7 @@
             <CardEditor v-model="title" @save="updateCard" @cancel="closeEditor" label="Save Card"></CardEditor>
         </div>
         <div v-else>
-            <loading class="w-5 h-5 mt-2"></loading>
+            <loading class="w-5 h-5 mt-2 mx-auto"></loading>
         </div>
     </div>
 </template>

@@ -36627,7 +36627,7 @@ var render = function() {
           ],
           1
         )
-      : _c("div", [_c("loading", { staticClass: "w-5 h-5 mt-2" })], 1)
+      : _c("div", [_c("loading", { staticClass: "w-5 h-5 mt-2 mx-auto" })], 1)
   ])
 }
 var staticRenderFns = []
