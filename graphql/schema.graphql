@@ -18,10 +18,12 @@ type Mutation {
     login(email:String @rules(apply:["required","string"]),password:String @rules(apply:["required","string"])): User!
     logout: User @guard
     register(
-        name:String @rules(apply:["required","string","min:2"]),
-        email:String @rules(apply:["required","string","max:255","email","unique:users"]),
-        password:String @rules(apply:["required","string","min:8","confirmed"])
-        ): User! @create
+        name:String @rules(apply:["required", "string", "max:255"]),
+        email:String  @rules(apply:["required", "string", "email", "max:255", "unique:users"]),
+        password:String @rules(apply:["required", "string", "min:8", "confirmed"]),
+        password_confirmation:String @rules(apply:["required"])
+        ): User!
+
 }
 
 type User {
