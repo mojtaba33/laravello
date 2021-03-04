@@ -2,6 +2,7 @@ import './bootstrap';
 import Vue from 'vue';
 import {apolloProvider} from './apollo';
 import {router} from './routes';
+import {store} from './store';
 import Loading from './components/global/Loading';
 import ValidationErr from './components/global/ValidationErr';
 import showError from './components/global/showError';
@@ -15,5 +16,6 @@ const app = new Vue({
     el: '#app',
     apolloProvider,
     router,
+    store,
     components:{},
 });
