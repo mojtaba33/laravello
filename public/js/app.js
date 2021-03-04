@@ -8464,7 +8464,10 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_7__.default({
   apolloProvider: _apollo__WEBPACK_IMPORTED_MODULE_1__.apolloProvider,
   router: _routes__WEBPACK_IMPORTED_MODULE_2__.router,
   store: _store__WEBPACK_IMPORTED_MODULE_3__.store,
-  components: {}
+  components: {},
+  beforeCreate: function beforeCreate() {
+    this.$store.dispatch("auth/setLogin", localStorage.getItem("isLoggedIn") === "true");
+  }
 });
 
 /***/ }),
@@ -8605,12 +8608,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "store": () => (/* binding */ store)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _vuex_madules_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vuex madules/auth */ "./resources/js/vuex madules/auth.js");
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vuex__WEBPACK_IMPORTED_MODULE_1__.default);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_1__.default.Store({});
+
+vue__WEBPACK_IMPORTED_MODULE_1__.default.use(vuex__WEBPACK_IMPORTED_MODULE_2__.default);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store({
+  modules: {
+    auth: _vuex_madules_auth__WEBPACK_IMPORTED_MODULE_0__.default
+  }
+});
 
 /***/ }),
 
@@ -8667,6 +8676,41 @@ function gqlError(error) {
 
   return response;
 }
+
+/***/ }),
+
+/***/ "./resources/js/vuex madules/auth.js":
+/*!*******************************************!*\
+  !*** ./resources/js/vuex madules/auth.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: function state() {
+    return {
+      isLoggedIn: false
+    };
+  },
+  mutations: {
+    setLogin: function setLogin(state, payload) {
+      state.isLoggedIn = payload;
+    }
+  },
+  actions: {
+    setLogin: function setLogin(_ref, payload) {
+      var commit = _ref.commit;
+      var status = Boolean(payload);
+      commit("setLogin", status);
+      localStorage.setItem('isLoggedIn', status);
+    }
+  }
+});
 
 /***/ }),
 

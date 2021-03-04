@@ -18,4 +18,8 @@ const app = new Vue({
     router,
     store,
     components:{},
+    beforeCreate()
+    {
+        this.$store.dispatch("auth/setLogin",localStorage.getItem("isLoggedIn") === "true");
+    }
 });
