@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{{ mix("css/app.css") }}">
         <script src="{{ mix("js/app.js") }}" defer ></script>
     </head>
-    <body class="bg-green-400 box-border font-sans">
+    <body class="bg-gradient-to-b from-purple-600 to-blue-300 box-border font-sans">
         <div id="app">
             <router-view></router-view>
         </div>
