@@ -60,7 +60,10 @@ export default {
                         email:this.email,
                         password:this.password
                     }
-                })
+                });
+                this.$store.dispatch("auth/setLogin",true);
+                await this.$store.dispatch("auth/fetchUser");
+                this.$router.push({name:'home'});
             }catch(error){
                 this.errorHandler(gqlError(error));
             }
@@ -70,6 +73,7 @@ export default {
     beforeCreate()
     {
         document.querySelector('body').style.backgroundColor = "#FFF";
+        document.querySelector('body').style.backgroundImage = "none";
     }
 }
 </script>

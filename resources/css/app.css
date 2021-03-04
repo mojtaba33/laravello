@@ -1,12 +1,24 @@
 @tailwind base;
 @tailwind components;
+.header-btn {
+    background-color: hsla(0, 0%, 100%, 0.3);
+    @apply rounded-sm px-2 py-1 text-sm font-bold outline-none whitespace-nowrap;
+}
+
+.header-btn:focus {
+    @apply outline-none;
+}
+
+.header-btn:hover {
+    @apply opacity-75;
+}
 @tailwind utilities;
 
 ::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
-	background-color: #F3F4F6;
+	background-color: hsla(0, 0%, 100%, 0.3);
 }
 
 ::-webkit-scrollbar
@@ -20,5 +32,5 @@
 {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #9CA3AF;
+	background-color: hsla(0, 0%, 100%, 1);
 }

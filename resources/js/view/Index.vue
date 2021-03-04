@@ -14,6 +14,9 @@ export default {
     },
     beforeCreate()
     {
+        document.querySelector('body').style.backgroundImage = '';
+        document.querySelector('body').style.backgroundColor = '';
+        document.querySelector('body').className = "bg-gradient-to-b from-purple-600 to-blue-300";
         document.querySelector('body').style.overflow = 'hidden';
     }
 }

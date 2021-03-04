@@ -74,6 +74,9 @@ export default {
                         password_confirmation:this.password_confirmation,
                     }
                 });
+                this.$store.dispatch("auth/setLogin",true);
+                this.$store.dispatch("auth/fetchUser");
+                this.$router.push({name:'home'});
             } catch (error) {
                 this.errorHandler(gqlError(error));
             }
@@ -84,6 +87,7 @@ export default {
     beforeCreate()
     {
         document.querySelector('body').style.backgroundColor = "#FFF";
+        document.querySelector('body').style.backgroundImage = "none";
     }
 }
 </script>

@@ -18,9 +18,9 @@ const app = new Vue({
     router,
     store,
     components:{},
-    beforeCreate()
+    async beforeCreate()
     {
         this.$store.dispatch("auth/setLogin",localStorage.getItem("isLoggedIn") === "true");
-        this.$store.dispatch("auth/fetchUser");
+        await this.$store.dispatch("auth/fetchUser");
     }
 });
