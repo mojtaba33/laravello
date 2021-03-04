@@ -15,7 +15,3 @@ const apolloClient = new ApolloClient({
 export const apolloProvider = new VueApollo({
     defaultClient: apolloClient,
 })
-
-
-
-
