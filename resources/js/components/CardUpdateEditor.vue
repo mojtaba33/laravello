@@ -29,24 +29,29 @@ export default {
     methods:{
         async updateCard()
         {
-            this.loading = true;
-            await this.$apollo.mutate({
-                mutation: UpdateCard,
-                variables:{
-                    id: this.card.id,
-                    title: this.title
-                },
-                update: (store , { data : { updateCard } }) => {
-                    this.$emit("card-updated",{
-                        card:updateCard,
-                        store,
-                        type: CARD_UPDATED_EVENT
-                    });
-                }
-            });
-            this.closeEditor();
-            this.title = null;
-            this.loading = false;
+            try {
+                this.loading = true;
+                await this.$apollo.mutate({
+                    mutation: UpdateCard,
+                    variables:{
+                        id: this.card.id,
+                        title: this.title
+                    },
+                    update: (store , { data : { updateCard } }) => {
+                        this.$emit("card-updated",{
+                            card:updateCard,
+                            store,
+                            type: CARD_UPDATED_EVENT
+                        });
+                    }
+                });
+                this.closeEditor();
+                this.title = null;
+                this.loading = false;
+            } catch (error) {
+
+            }
+
         },
         closeEditor()
         {

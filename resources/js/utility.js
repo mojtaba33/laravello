@@ -1,7 +1,16 @@
+import {store} from './store';
+import {router} from './routes';
 export function gqlError(error)
 {
     const errors = error?.graphQLErrors || [];
     const serverErr = !errors.some(err => err.hasOwnProperty('path'));
+
+    if(error?.networkError && error?.networkError.statusCode === 419)
+    {
+        store.dispatch("auth/logout");
+        router.push({name:'login'});
+        return;
+    }
 
     let response = {
         errors : null,

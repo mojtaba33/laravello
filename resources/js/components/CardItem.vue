@@ -35,21 +35,26 @@ export default {
        })
     },
     methods: {
-        deleteCard()
+        async deleteCard()
         {
-            this.$apollo.mutate({
-                mutation: deleteCardQuery,
-                variables: {
-                    id: this.card.id
-                },
-                update:(store,{data:{deleteCard}})=>{
-                    this.$emit('card-deleted',{
-                        card : deleteCard,
-                        store,
-                        type:CARD_DELETED_EVENT
-                    });
-                }
-            });
+            try {
+                await this.$apollo.mutate({
+                    mutation: deleteCardQuery,
+                    variables: {
+                        id: this.card.id
+                    },
+                    update:(store,{data:{deleteCard}})=>{
+                        this.$emit('card-deleted',{
+                            card : deleteCard,
+                            store,
+                            type:CARD_DELETED_EVENT
+                        });
+                    }
+                });
+            } catch (error) {
+
+            }
+
         }
     },
 }
