@@ -37871,7 +37871,12 @@ var render = function() {
         "h1",
         {
           staticClass:
-            "uppercase font-bold text-2xl text-purple-600 cursor-default"
+            "uppercase font-bold text-2xl text-purple-600 cursor-pointer",
+          on: {
+            click: function($event) {
+              return _vm.$router.push({ name: "home" })
+            }
+          }
         },
         [_vm._v("laravello")]
       ),
@@ -38047,7 +38052,12 @@ var render = function() {
         "h1",
         {
           staticClass:
-            "uppercase font-bold text-2xl text-purple-600 cursor-default"
+            "uppercase font-bold text-2xl text-purple-600 cursor-pointer",
+          on: {
+            click: function($event) {
+              return _vm.$router.push({ name: "home" })
+            }
+          }
         },
         [_vm._v("laravello")]
       ),

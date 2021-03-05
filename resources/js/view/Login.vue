@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-start">
         <div class="sm:w-96 w-72 sm:mt-24 mt-5 text-center">
-            <h1 class="uppercase font-bold text-2xl text-purple-600 cursor-default">laravello</h1>
+            <h1 @click="$router.push({name:'home'})" class="uppercase font-bold text-2xl text-purple-600 cursor-pointer">laravello</h1>
             <div class="border-gray-200 border-2 rounded-sm py-8 px-4 mt-5">
                 <div class="font-bold text-base text-gray-500">Log in to Laravello</div>
                 <form @submit.prevent="login">
