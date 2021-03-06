@@ -12,7 +12,7 @@ type Query {
 }
 
 type Mutation {
-    addCard(input:addCardInput! @spread): Card! @create
+    addCard(input:addCardInput! @spread): Card! @create @can(ability:"createCard",model:"App\\Models\\CardList",find:"list_id")
     deleteCard(id: ID!): Card! @delete @can(ability:"delete",find:id)
     updateCard(id: ID!,title: String): Card! @update @can(ability:"update",find:id)
 

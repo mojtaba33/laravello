@@ -7,7 +7,7 @@
 
         <CardItem v-for="card in list.cards" :key="`card-${card.id}`" :card="card" @card-updated="$emit('card-updated',{...$event,list_id:list.id})" @card-deleted="$emit('card-deleted',{...$event,list_id:list.id})"></CardItem>
 
-        <div v-if="!showCardEditor" @click="showCardEditor = true;" class="w-auto p-1 mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer">
+        <div v-if="!showCardEditor && canCreateCard" @click="showCardEditor = true;" class="w-auto p-1 mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer">
             Add new card
         </div>
         <div v-if="showCardEditor">
@@ -20,7 +20,7 @@
 <script>
 import CardItem from './CardItem';
 import CardAddEditor from './CardAddEditor';
-
+import {mapState} from 'vuex';
 export default {
     props:{
         list:Object,
@@ -28,6 +28,13 @@ export default {
     data:()=>({
         showCardEditor : false,
     }),
+    computed: {
+        ...mapState({
+            canCreateCard (state) {
+                return state.auth.user.id == this.list.board.owner.id;
+            },
+        })
+    },
     components:{
         CardItem,CardAddEditor
     },

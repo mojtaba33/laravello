@@ -11,6 +11,13 @@ query BoardWithListsAndCards($id:ID!) {
         lists{
             id
             title
+            board{
+                id
+                title
+                owner{
+                    id
+                }
+            }
             cards{
                 id
                 title
