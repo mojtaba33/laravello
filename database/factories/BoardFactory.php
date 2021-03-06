@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BoardFactory extends Factory
 {
+    private $colors = ["orange","gray","yellow","purple","red","green","blue","indigo","pink"];
     /**
      * The name of the factory's corresponding model.
      *
@@ -24,7 +25,7 @@ class BoardFactory extends Factory
     {
         return [
             'title' => $this->faker->name,
-            'color' => $this->faker->colorName,
+            'color' => collect($this->colors)->random(),
         ];
     }
 }

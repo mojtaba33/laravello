@@ -47,15 +47,17 @@
 import {gqlError} from './../utility.js';
 import registerQuery from "./../graphql/Register.gql";
 import errorMixin from './../mixins/errors';
+import bodyClassMixin from './../mixins/class';
 
 export default {
-    mixins:[errorMixin],
+    mixins:[errorMixin,bodyClassMixin],
     data:() => ({
         name:null,
         email:null,
         password:null,
         password_confirmation:null,
         disabled:false,
+        className: ["bg-white"]
     }),
     methods: {
         async register()
@@ -83,11 +85,6 @@ export default {
 
             this.disabled = false;
         }
-    },
-    beforeCreate()
-    {
-        document.querySelector('body').style.backgroundColor = "#FFF";
-        document.querySelector('body').style.backgroundImage = "none";
     }
 }
 </script>

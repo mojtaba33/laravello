@@ -35,3 +35,18 @@ export function gqlError(error)
 
     return response;
 }
+
+export const colorMap500 = {
+    orange: "bg-yellow-600",
+    gray: "bg-gray-500",
+    yellow: "bg-yellow-400",
+    purple: "bg-purple-500",
+    red: "bg-red-500",
+    green: "bg-green-500",
+    blue: "bg-blue-500",
+    indigo: "bg-indigo-500",
+    pink: "bg-pink-500"
+};
+
+
+

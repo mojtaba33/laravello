@@ -39,12 +39,14 @@
 import loginQuery from './../graphql/Login.gql';
 import {gqlError} from './../utility';
 import mixinErr from './../mixins/errors';
+import bodyClassMixin from './../mixins/class';
 export default {
-    mixins:[mixinErr],
+    mixins:[mixinErr,bodyClassMixin],
     data:() => ({
         email:null,
         password:null,
-        disabled:false
+        disabled:false,
+        className: ["bg-white"],
     }),
     methods: {
         async login()
@@ -69,11 +71,6 @@ export default {
             }
             this.disabled = false;
         }
-    },
-    beforeCreate()
-    {
-        document.querySelector('body').style.backgroundColor = "#FFF";
-        document.querySelector('body').style.backgroundImage = "none";
     }
 }
 </script>

@@ -1,24 +1,23 @@
 <template>
     <div>
         <NavBar></NavBar>
-        <div class="h-screen flex justify-center items-center">
-            <h1 class="sm:text-7xl text-3xl font-bold text-white title-shadow">Laravello</h1>
+        <div class="w-full absolute top-1/2 text-center">
+            <h1 class="sm:text-7xl text-3xl mx-auto font-bold text-white title-shadow">Laravello</h1>
         </div>
     </div>
 </template>
 <script>
 import NavBar from './../components/Nav';
+import bodyClassMixin from './../mixins/class';
 export default {
+    mixins:[bodyClassMixin],
     components:{
         NavBar
     },
-    beforeCreate()
-    {
-        document.querySelector('body').style.backgroundImage = '';
-        document.querySelector('body').style.backgroundColor = '';
-        document.querySelector('body').className = "bg-gradient-to-b from-purple-600 to-blue-300";
-        document.querySelector('body').style.overflow = 'hidden';
-    }
+    data:()=>({
+        className: ["bg-gradient-to-b", "from-purple-600", "to-blue-300", "h-screen"]
+    }),
+
 }
 </script>
 <style scoped>

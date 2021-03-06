@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen bg-purple-400 flex flex-col justify-start items-stretch">
+    <div class="h-screen flex flex-col justify-start items-stretch">
         <NavBar></NavBar>
         <loading v-if="$apollo.queries.board.loading" class="w-8 h-8 mt-5 mx-auto"></loading>
         <section v-else class=" p-3 flex flex-col justify-start items-stretch pb-0 h-full overflow-y-auto">
@@ -21,6 +21,7 @@ import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
 import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT } from '../query-events';
 import NavBar from './../components/Nav';
+import {colorMap500} from './../utility.js';
 export default {
     apollo:{
         board:{
@@ -32,6 +33,10 @@ export default {
             }
         }
     },
+    data:() => ({
+        board:null,
+        className: "bg-purple-500",
+    }),
     components:{
         List,NavBar
     },
@@ -41,7 +46,7 @@ export default {
             const data = event.store.readQuery({
                 query: BoardQuery,
                 variables: {
-                    id: this.$route.params.id,
+                    id: Number(this.$route.params.id),
                 },
             });
 
@@ -62,6 +67,19 @@ export default {
 
             event.store.writeQuery({ query: BoardQuery , data });
         }
+    },
+    watch: {
+        board: function () {
+            this.className = colorMap500[this.board.color] || "bg-purple-500";
+            this.$store.dispatch("addBodyClass",{
+                class : [this.className]
+            });
+        }
+    },
+    destroyed() {
+        this.$store.dispatch("removeBodyClass",{
+            class : [this.className]
+        });
     },
 }
 </script>
