@@ -8068,6 +8068,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -37837,7 +37838,9 @@ var render = function() {
             "w-1/3 opacity-70 hover:opacity-100 cursor-pointer flex items-center justify-center",
           on: {
             click: function($event) {
-              return _vm.$router.push({ name: "home" })
+              _vm.$route.name != "home"
+                ? _vm.$router.push({ name: "home" })
+                : ""
             }
           }
         },

@@ -1,7 +1,8 @@
 <template>
     <nav class="flex justify-between text-white py-1 header">
         <div class="ml-3 w-1/3 flex justify-start items-center">x</div>
-        <div class="w-1/3 opacity-70 hover:opacity-100 cursor-pointer flex items-center justify-center" @click="$router.push({name:'home'})">Laravello</div>
+        <div class="w-1/3 opacity-70 hover:opacity-100 cursor-pointer flex items-center justify-center"
+        @click="$route.name != 'home' ? $router.push({name:'home'}) : ''">Laravello</div>
         <div class="w-1/3 mr-3 flex justify-end items-center">
             <div v-if="isLoggedIn">
                 <span class="mr-1 text-sm opacity-90">{{ name }}</span>
