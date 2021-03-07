@@ -30,6 +30,14 @@ export default {
                 return {
                     id: Number(this.$route.params.id)
                 }
+            },
+            result(ApolloQueryResult)
+            {
+                const boardColor = ApolloQueryResult.data.board.color;
+                this.className = colorMap500[boardColor] || "bg-purple-500";
+                this.$store.dispatch("addBodyClass",{
+                    class : [this.className]
+                });
             }
         }
     },
@@ -67,14 +75,6 @@ export default {
             }
 
             event.store.writeQuery({ query: BoardQuery , data });
-        }
-    },
-    watch: {
-        board: function () {
-            this.className = colorMap500[this.board.color] || "bg-purple-500";
-            this.$store.dispatch("addBodyClass",{
-                class : [this.className]
-            });
         }
     },
     destroyed() {

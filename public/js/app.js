@@ -8348,6 +8348,13 @@ __webpack_require__.r(__webpack_exports__);
         return {
           id: Number(this.$route.params.id)
         };
+      },
+      result: function result(ApolloQueryResult) {
+        var boardColor = ApolloQueryResult.data.board.color;
+        this.className = _utility_js__WEBPACK_IMPORTED_MODULE_4__.colorMap500[boardColor] || "bg-purple-500";
+        this.$store.dispatch("addBodyClass", {
+          "class": [this.className]
+        });
       }
     }
   },
@@ -8395,14 +8402,6 @@ __webpack_require__.r(__webpack_exports__);
       event.store.writeQuery({
         query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
         data: data
-      });
-    }
-  },
-  watch: {
-    board: function board() {
-      this.className = _utility_js__WEBPACK_IMPORTED_MODULE_4__.colorMap500[this.board.color] || "bg-purple-500";
-      this.$store.dispatch("addBodyClass", {
-        "class": [this.className]
       });
     }
   },
