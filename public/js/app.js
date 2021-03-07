@@ -7595,6 +7595,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -37566,51 +37568,58 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass: "header-btn",
-        on: {
-          click: function($event) {
-            $event.preventDefault()
-            _vm.show = !_vm.show
+  return _c(
+    "div",
+    [
+      _c(
+        "button",
+        {
+          staticClass: "header-btn",
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.show = !_vm.show
+            }
           }
-        }
-      },
-      [_vm._v("Boards")]
-    ),
-    _vm._v(" "),
-    _vm.show
-      ? _c(
-          "div",
-          {
-            staticClass:
-              "p-2 w-64 absolute rounded-sm bg-gray-100 top-8 z-10 border-2 border-gray-500 shadow-md"
-          },
-          _vm._l(5, function(n) {
-            return _c(
+        },
+        [_vm._v("Boards")]
+      ),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade" } }, [
+        _vm.show
+          ? _c(
               "div",
               {
-                key: n,
                 staticClass:
-                  "text-gray-700 my-2 flex justify-start items-center rounded-sm bg-purple-200 cursor-pointer"
+                  "px-2 w-64 absolute rounded-sm bg-gray-100 top-8 z-10 shadow-md"
               },
-              [
-                _c("div", {
-                  staticClass: "w-8 h-8 bg-purple-400 rounded-sm rounded-r-none"
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "ml-1 text-xs font-bold" }, [
-                  _vm._v("borad item")
-                ])
-              ]
+              _vm._l(5, function(n) {
+                return _c(
+                  "div",
+                  {
+                    key: n,
+                    staticClass:
+                      "text-gray-700 my-2 flex justify-start items-center rounded-sm bg-purple-200 cursor-pointer"
+                  },
+                  [
+                    _c("div", {
+                      staticClass:
+                        "w-8 h-8 bg-purple-400 rounded-sm rounded-r-none"
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "ml-1 text-xs font-bold" }, [
+                      _vm._v("borad item")
+                    ])
+                  ]
+                )
+              }),
+              0
             )
-          }),
-          0
-        )
-      : _vm._e()
-  ])
+          : _vm._e()
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
