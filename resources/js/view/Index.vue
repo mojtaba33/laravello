@@ -1,7 +1,7 @@
 <template>
     <div>
         <NavBar></NavBar>
-        <div class="w-full absolute top-1/2 text-center">
+        <div class="w-full absolute top-1/2 text-center z-10">
             <h1 class="sm:text-7xl text-3xl mx-auto font-bold text-white title-shadow">Laravello</h1>
         </div>
     </div>

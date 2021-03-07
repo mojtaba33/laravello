@@ -38635,16 +38635,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-full absolute top-1/2 text-center" }, [
-      _c(
-        "h1",
-        {
-          staticClass:
-            "sm:text-7xl text-3xl mx-auto font-bold text-white title-shadow"
-        },
-        [_vm._v("Laravello")]
-      )
-    ])
+    return _c(
+      "div",
+      { staticClass: "w-full absolute top-1/2 text-center z-10" },
+      [
+        _c(
+          "h1",
+          {
+            staticClass:
+              "sm:text-7xl text-3xl mx-auto font-bold text-white title-shadow"
+          },
+          [_vm._v("Laravello")]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
