@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="!loading">
-            <CardEditor v-model="title" @save="addCard" @cancel="closeEditor" label="Add Card"></CardEditor>
+            <CardEditor v-model="title" @save="addCard" @cancel="closeEditor" v-on-clickaway="closeEditor" label="Add Card"></CardEditor>
         </div>
         <div v-else>
             <loading class="w-5 h-5 mt-2 mx-auto"></loading>
@@ -13,6 +13,7 @@ import CardEditor from './CardEditor';
 import addCard from './../graphql/AddCard.gql';
 import {CARD_ADDED_EVENT} from './../query-events';
 import {mapState} from 'vuex';
+import { directive as onClickaway } from 'vue-clickaway';
 export default {
     props:{
         list:Object,
@@ -28,6 +29,9 @@ export default {
         ...mapState({
             userId : state => state.auth.user.id,
         })
+    },
+    directives: {
+        onClickaway: onClickaway,
     },
     methods:{
         async addCard()

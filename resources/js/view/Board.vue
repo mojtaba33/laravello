@@ -28,7 +28,7 @@ export default {
             query:BoardQuery,
             variables(){
                 return {
-                    id: this.$route.params.id
+                    id: Number(this.$route.params.id)
                 }
             }
         }
@@ -43,6 +43,7 @@ export default {
     methods: {
         updateQueryCache(event)
         {
+
             const data = event.store.readQuery({
                 query: BoardQuery,
                 variables: {

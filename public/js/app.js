@@ -7672,7 +7672,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/AddCard.gql */ "./resources/js/graphql/AddCard.gql");
 /* harmony import */ var _graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_AddCard_gql__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../query-events */ "./resources/js/query-events.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7699,6 +7700,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     list: Object
@@ -7712,11 +7714,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loading: false
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)({
     userId: function userId(state) {
       return state.auth.user.id;
     }
   })),
+  directives: {
+    onClickaway: vue_clickaway__WEBPACK_IMPORTED_MODULE_4__.directive
+  },
   methods: {
     addCard: function addCard() {
       var _this = this;
@@ -7952,6 +7957,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graphql_UpdateCard_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/UpdateCard.gql */ "./resources/js/graphql/UpdateCard.gql");
 /* harmony import */ var _graphql_UpdateCard_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_UpdateCard_gql__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../query-events */ "./resources/js/query-events.js");
+/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7971,6 +7977,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     card: Object
@@ -7986,6 +7993,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       title: null,
       loading: false
     };
+  },
+  directives: {
+    onClickaway: vue_clickaway__WEBPACK_IMPORTED_MODULE_4__.directive
   },
   methods: {
     updateCard: function updateCard() {
@@ -8336,7 +8346,7 @@ __webpack_require__.r(__webpack_exports__);
       query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
       variables: function variables() {
         return {
-          id: this.$route.params.id
+          id: Number(this.$route.params.id)
         };
       }
     }
@@ -37913,7 +37923,10 @@ var render = function() {
                     staticClass:
                       "text-gray-700 my-2 flex justify-start items-center rounded-sm cursor-pointer",
                     class: _vm.colorMap100[board.color],
-                    attrs: { to: { name: "board", params: { id: board.id } } },
+                    attrs: {
+                      to: { name: "board", params: { id: board.id } },
+                      "active-class": "border-2 border-gray-400"
+                    },
                     nativeOn: {
                       click: function($event) {
                         _vm.show = false
@@ -37969,6 +37982,14 @@ var render = function() {
           "div",
           [
             _c("CardEditor", {
+              directives: [
+                {
+                  name: "on-clickaway",
+                  rawName: "v-on-clickaway",
+                  value: _vm.closeEditor,
+                  expression: "closeEditor"
+                }
+              ],
               attrs: { label: "Add Card" },
               on: { save: _vm.addCard, cancel: _vm.closeEditor },
               model: {
@@ -38185,6 +38206,14 @@ var render = function() {
           "div",
           [
             _c("CardEditor", {
+              directives: [
+                {
+                  name: "on-clickaway",
+                  rawName: "v-on-clickaway",
+                  value: _vm.closeEditor,
+                  expression: "closeEditor"
+                }
+              ],
               attrs: { label: "Save Card" },
               on: { save: _vm.updateCard, cancel: _vm.closeEditor },
               model: {
