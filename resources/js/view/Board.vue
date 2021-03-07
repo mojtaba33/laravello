@@ -81,5 +81,11 @@ export default {
             class : [this.className]
         });
     },
+    beforeRouteUpdate (to, from, next) {
+        this.$store.dispatch("removeBodyClass",{
+            class : [this.className]
+        });
+        next();
+    }
 }
 </script>

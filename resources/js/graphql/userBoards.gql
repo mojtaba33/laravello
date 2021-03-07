@@ -1,0 +1,7 @@
+query UserBaords($owner_id:Int!) {
+  userBoards(owner_id:$owner_id){
+    id
+    title
+    color
+  }
+}

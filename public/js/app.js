@@ -7582,6 +7582,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../graphql/userBoards.gql */ "./resources/js/graphql/userBoards.gql");
+/* harmony import */ var _graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _utility__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utility */ "./resources/js/utility.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -7597,12 +7607,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  apollo: {
+    userBoards: {
+      query: (_graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
+      variables: function variables() {
+        return {
+          owner_id: Number(this.userId)
+        };
+      },
+      skip: function skip() {
+        return !this.userId;
+      }
+    }
+  },
   data: function data() {
     return {
       show: false
     };
-  }
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
+    userId: function userId(state) {
+      return state.auth.user.id;
+    }
+  })), {}, {
+    colorMap100: function colorMap100() {
+      return _utility__WEBPACK_IMPORTED_MODULE_1__.colorMap100;
+    },
+    colorMap200: function colorMap200() {
+      return _utility__WEBPACK_IMPORTED_MODULE_1__.colorMap200;
+    }
+  })
 });
 
 /***/ }),
@@ -8352,6 +8390,12 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.dispatch("removeBodyClass", {
       "class": [this.className]
     });
+  },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    this.$store.dispatch("removeBodyClass", {
+      "class": [this.className]
+    });
+    next();
   }
 });
 
@@ -8913,6 +8957,7 @@ var routes = [{
   component: _view_Index__WEBPACK_IMPORTED_MODULE_3__.default
 }, {
   path: '/boards/:id',
+  name: 'board',
   component: _view_Board__WEBPACK_IMPORTED_MODULE_0__.default
 }, {
   path: '/login',
@@ -8990,7 +9035,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__.default.Store({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "gqlError": () => (/* binding */ gqlError),
-/* harmony export */   "colorMap500": () => (/* binding */ colorMap500)
+/* harmony export */   "colorMap500": () => (/* binding */ colorMap500),
+/* harmony export */   "colorMap100": () => (/* binding */ colorMap100),
+/* harmony export */   "colorMap200": () => (/* binding */ colorMap200)
 /* harmony export */ });
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
@@ -9057,6 +9104,28 @@ var colorMap500 = {
   blue: "bg-blue-500",
   indigo: "bg-indigo-500",
   pink: "bg-pink-500"
+};
+var colorMap100 = {
+  orange: "bg-yellow-400",
+  gray: "bg-gray-100",
+  yellow: "bg-yellow-100",
+  purple: "bg-purple-100",
+  red: "bg-red-100",
+  green: "bg-green-100",
+  blue: "bg-blue-100",
+  indigo: "bg-indigo-100",
+  pink: "bg-pink-100"
+};
+var colorMap200 = {
+  orange: "bg-yellow-500",
+  gray: "bg-gray-200",
+  yellow: "bg-yellow-200",
+  purple: "bg-purple-200",
+  red: "bg-red-200",
+  green: "bg-green-200",
+  blue: "bg-blue-200",
+  indigo: "bg-indigo-200",
+  pink: "bg-pink-200"
 };
 
 /***/ }),
@@ -10433,6 +10502,138 @@ module.exports = function (data, opts) {
     module.exports = doc;
     
         module.exports.Logout = oneQuery(doc, "Logout");
+        
+
+
+/***/ }),
+
+/***/ "./resources/js/graphql/userBoards.gql":
+/*!*********************************************!*\
+  !*** ./resources/js/graphql/userBoards.gql ***!
+  \*********************************************/
+/***/ ((module) => {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserBaords"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"owner_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userBoards"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"owner_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"owner_id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"title"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":102}};
+    doc.loc.source = {"body":"query UserBaords($owner_id:Int!) {\n  userBoards(owner_id:$owner_id){\n    id\n    title\n    color\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports.UserBaords = oneQuery(doc, "UserBaords");
         
 
 
@@ -37591,29 +37792,31 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "px-2 w-64 absolute rounded-sm bg-gray-100 top-8 z-10 shadow-md"
+                  "px-2 w-64 absolute rounded-sm bg-gray-100 top-8 z-10 shadow-md overflow-y-auto"
               },
-              _vm._l(5, function(n) {
+              _vm._l(_vm.userBoards, function(board, i) {
                 return _c(
-                  "div",
+                  "router-link",
                   {
-                    key: n,
+                    key: "board-d-" + i,
                     staticClass:
-                      "text-gray-700 my-2 flex justify-start items-center rounded-sm bg-purple-200 cursor-pointer"
+                      "text-gray-700 my-2 flex justify-start items-center rounded-sm cursor-pointer",
+                    class: _vm.colorMap100[board.color],
+                    attrs: { to: { name: "board", params: { id: board.id } } }
                   },
                   [
                     _c("div", {
-                      staticClass:
-                        "w-8 h-8 bg-purple-400 rounded-sm rounded-r-none"
+                      staticClass: "w-8 h-8 rounded-sm rounded-r-none",
+                      class: _vm.colorMap200[board.color]
                     }),
                     _vm._v(" "),
-                    _c("div", { staticClass: "ml-1 text-xs font-bold" }, [
-                      _vm._v("borad item")
+                    _c("div", { staticClass: "ml-2 text-xs font-bold" }, [
+                      _vm._v(_vm._s(board.title))
                     ])
                   ]
                 )
               }),
-              0
+              1
             )
           : _vm._e()
       ])
@@ -38021,7 +38224,12 @@ var render = function() {
     { staticClass: "flex justify-between text-white py-1 header" },
     [
       _c("div", { staticClass: "ml-3 w-1/3 flex justify-start items-center" }, [
-        _c("div", { staticClass: "relative" }, [_c("BoardDropdown")], 1)
+        _c(
+          "div",
+          { staticClass: "relative" },
+          [_vm.isLoggedIn ? _c("BoardDropdown") : _vm._e()],
+          1
+        )
       ]),
       _vm._v(" "),
       _c(

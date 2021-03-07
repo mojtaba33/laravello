@@ -48,5 +48,29 @@ export const colorMap500 = {
     pink: "bg-pink-500"
 };
 
+export const colorMap100 = {
+    orange: "bg-yellow-400",
+    gray: "bg-gray-100",
+    yellow: "bg-yellow-100",
+    purple: "bg-purple-100",
+    red: "bg-red-100",
+    green: "bg-green-100",
+    blue: "bg-blue-100",
+    indigo: "bg-indigo-100",
+    pink: "bg-pink-100"
+  };
+
+  export const colorMap200 = {
+    orange: "bg-yellow-500",
+    gray: "bg-gray-200",
+    yellow: "bg-yellow-200",
+    purple: "bg-purple-200",
+    red: "bg-red-200",
+    green: "bg-green-200",
+    blue: "bg-blue-200",
+    indigo: "bg-indigo-200",
+    pink: "bg-pink-200"
+  };
+
 
 
