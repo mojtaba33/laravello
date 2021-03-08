@@ -17,6 +17,8 @@ type Mutation {
     deleteCard(id: ID!): Card! @delete @can(ability:"delete",find:id)
     updateCard(id: ID!,title: String): Card! @update @can(ability:"update",find:id)
 
+    createBoard(input:createBoardInput! @spread): Board! @create @guard
+
     login(email:String @rules(apply:["required","string"]),password:String @rules(apply:["required","string"])): User!
     logout: User @guard
     register(
@@ -70,4 +72,10 @@ input addCardInput {
     list_id: ID!
     owner_id: ID!
     order: Int!
+}
+
+input createBoardInput {
+    title: String! @rules(apply:["required", "string", "max:255"])
+    color: String! @rules(apply:["required", "string", "max:255"])
+    owner_id: ID!  @rules(apply:["required", "integer", "min:1"])
 }
