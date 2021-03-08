@@ -9,7 +9,7 @@
                         <div class="ml-2 text-xs font-bold">{{ board.title }}</div>
                     </router-link>
 
-                    <div @click="showModal = true" class="text-gray-600 text-sm font-bold py-2 pl-2 mb-2 cursor-pointer hover:underline hover:bg-gray-200">Create new board</div>
+                    <div @click="showModal = true" class="text-gray-600 text-sm font-bold py-2 pl-2 my-2 cursor-pointer hover:underline hover:bg-gray-200">Create new board</div>
 
                 </div>
             </transition>

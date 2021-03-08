@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="m-1">
-                <button :class="[colors[bgColor]]" class="text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:bg-purple-500">Create</button>
+                <button :class="[colors[bgColor]]" class="text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:opacity-80">Create</button>
             </div>
         </div>
     </modal>

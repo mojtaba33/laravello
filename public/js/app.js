@@ -38327,7 +38327,7 @@ var render = function() {
                   "div",
                   {
                     staticClass:
-                      "text-gray-600 text-sm font-bold py-2 pl-2 mb-2 cursor-pointer hover:underline hover:bg-gray-200",
+                      "text-gray-600 text-sm font-bold py-2 pl-2 my-2 cursor-pointer hover:underline hover:bg-gray-200",
                     on: {
                       click: function($event) {
                         _vm.showModal = true
@@ -38492,7 +38492,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:bg-purple-500",
+                      "text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:opacity-80",
                     class: [_vm.colors[_vm.bgColor]]
                   },
                   [_vm._v("Create")]

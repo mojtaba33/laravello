@@ -17,13 +17,14 @@ class BoardSeeder extends Seeder
      */
     public function run()
     {
-        User::all()->random(5)->map(function ($user){
+        for( $i = 0 ; $i < 50 ; $i++ )
+        {
+            $user = User::all()->random();
             CardList::factory()
                 ->has(Card::factory()->count(random_int(2,7))->for($user,'owner'),'cards')
                 ->count(random_int(1,5))
                 ->for(Board::factory()->for($user,'owner'))
                 ->create();
-        });
-
+        }
     }
 }
