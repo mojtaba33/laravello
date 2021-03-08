@@ -13,9 +13,7 @@
 
                 </div>
             </transition>
-            <modal v-if="showModal" @closed="showModal = false">
-                <div class="w-1/2 bg-transparent"></div>
-            </modal>
+            <BoardModal :show="showModal" @closed="showModal = false"></BoardModal>
         </div>
 </template>
 <script>
@@ -23,6 +21,7 @@ import userBoards from './../graphql/userBoards.gql';
 import {mapState} from 'vuex';
 import {colorMap100,colorMap200} from './../utility';
 import { directive as onClickaway } from 'vue-clickaway';
+import BoardModal from './BoardModal';
 export default {
     apollo:{
         userBoards:{
@@ -36,6 +35,9 @@ export default {
                 return !this.userId;
             }
         }
+    },
+    components:{
+        BoardModal
     },
     data:()=>({
         showBoards:false,
