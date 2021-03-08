@@ -6,11 +6,13 @@ import {store} from './store';
 import Loading from './components/global/Loading';
 import ValidationErr from './components/global/ValidationErr';
 import showError from './components/global/showError';
+import Modal from './components/global/Modal';
 
 window.Vue = Vue;
 Vue.component("loading",Loading);
 Vue.component("validation-err",ValidationErr);
 Vue.component("show-error",showError);
+Vue.component("modal",Modal);
 
 const app = new Vue({
     el: '#app',
