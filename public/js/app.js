@@ -7675,6 +7675,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _utility__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../utility */ "./resources/js/utility.js");
 //
 //
 //
@@ -7693,11 +7694,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     show: {
       Boolean: Boolean
     }
+  },
+  data: function data() {
+    return {
+      colors: _utility__WEBPACK_IMPORTED_MODULE_0__.colorMap500,
+      bgColor: "red"
+    };
   }
 });
 
@@ -38383,12 +38396,15 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "flex justify-start items-stretch lg:flex-row flex-col"
+                    "flex lg:justify-start lg:items-stretch lg:flex-row flex-col justify-start items-start"
                 },
                 [
                   _c(
                     "div",
-                    { staticClass: "p-5 bg-red-500 rounded-sm lg:w-2/3 m-1" },
+                    {
+                      staticClass: "p-5 rounded-sm w-full lg:w-2/3 m-1",
+                      class: [_vm.colors[_vm.bgColor]]
+                    },
                     [
                       _c("input", {
                         staticClass:
@@ -38405,13 +38421,66 @@ var render = function() {
                     "div",
                     {
                       staticClass:
-                        "m-1 flex flex-wrap justify-start items-center lg:w-1/3"
+                        "m-1 flex flex-wrap justify-start items-center w-full lg:w-1/3"
                     },
-                    _vm._l(9, function(n) {
-                      return _c("div", {
-                        key: n,
-                        staticClass: "bg-pink-500 w-8 h-8 mr-1 mb-1 rounded-sm"
-                      })
+                    _vm._l(_vm.colors, function(className, color) {
+                      return _c(
+                        "div",
+                        {
+                          key: "color-" + color,
+                          staticClass: "w-8 h-8 mr-1 mb-1 rounded-sm relative",
+                          class: [className]
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.bgColor,
+                                expression: "bgColor"
+                              }
+                            ],
+                            staticClass:
+                              "bg-transparent absolute opacity-0 top-0 left-0 h-8 w-8 cursor-pointer",
+                            attrs: { type: "radio" },
+                            domProps: {
+                              value: color,
+                              checked: _vm._q(_vm.bgColor, color)
+                            },
+                            on: {
+                              change: function($event) {
+                                _vm.bgColor = color
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          color == _vm.bgColor
+                            ? _c(
+                                "svg",
+                                {
+                                  staticClass: "w-8 h-8",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    fill: "none",
+                                    viewBox: "0 0 24 24",
+                                    stroke: "currentColor"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      "stroke-linecap": "round",
+                                      "stroke-linejoin": "round",
+                                      "stroke-width": "2",
+                                      d: "M5 13l4 4L19 7"
+                                    }
+                                  })
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      )
                     }),
                     0
                   )
@@ -38423,7 +38492,8 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "bg-purple-600 text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:bg-purple-500"
+                      "text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:bg-purple-500",
+                    class: [_vm.colors[_vm.bgColor]]
                   },
                   [_vm._v("Create")]
                 )
