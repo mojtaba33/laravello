@@ -10280,8 +10280,8 @@ module.exports = function (data, opts) {
 /***/ ((module) => {
 
 
-    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Register"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password_confirmation"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"register"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}},{"kind":"Argument","name":{"kind":"Name","value":"password_confirmation"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password_confirmation"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"email"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":231}};
-    doc.loc.source = {"body":"mutation Register($name:String,$email:String,$password:String,$password_confirmation:String)\n{\n  register(name:$name,email:$email,password:$password,password_confirmation:$password_confirmation)\n  {\n    id\n    name\n    email\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Register"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password_confirmation"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"register"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"password_confirmation"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password_confirmation"}}}]}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"email"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":239}};
+    doc.loc.source = {"body":"mutation Register($name:String,$email:String,$password:String,$password_confirmation:String)\n{\n  register(input:{name:$name,email:$email,password:$password,password_confirmation:$password_confirmation})\n  {\n    id\n    name\n    email\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
   
 
     var names = {};
@@ -39515,7 +39515,7 @@ var render = function() {
                     ],
                     staticClass:
                       "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
-                    class: { "border-red-300": _vm.inputHasErr("name") },
+                    class: { "border-red-300": _vm.inputHasErr("input.name") },
                     attrs: { type: "text", placeholder: "Enter full name" },
                     domProps: { value: _vm.name },
                     on: {
@@ -39531,7 +39531,7 @@ var render = function() {
                   _vm.validationErr
                     ? _c("validation-err", {
                         staticClass: "text-left w-5/6 sm:w-3/4 mx-auto",
-                        attrs: { error: _vm.validationErr.name }
+                        attrs: { error: _vm.validationErr["input.name"] }
                       })
                     : _vm._e()
                 ],
@@ -39553,7 +39553,7 @@ var render = function() {
                     ],
                     staticClass:
                       "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
-                    class: { "border-red-300": _vm.inputHasErr("email") },
+                    class: { "border-red-300": _vm.inputHasErr("input.email") },
                     attrs: { type: "text", placeholder: "Enter email" },
                     domProps: { value: _vm.email },
                     on: {
@@ -39569,7 +39569,7 @@ var render = function() {
                   _vm.validationErr
                     ? _c("validation-err", {
                         staticClass: "text-left w-5/6 sm:w-3/4 mx-auto",
-                        attrs: { error: _vm.validationErr.email }
+                        attrs: { error: _vm.validationErr["input.email"] }
                       })
                     : _vm._e()
                 ],
@@ -39591,7 +39591,9 @@ var render = function() {
                     ],
                     staticClass:
                       "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
-                    class: { "border-red-300": _vm.inputHasErr("password") },
+                    class: {
+                      "border-red-300": _vm.inputHasErr("input.password")
+                    },
                     attrs: { type: "password", placeholder: "Enter password" },
                     domProps: { value: _vm.password },
                     on: {
@@ -39607,7 +39609,7 @@ var render = function() {
                   _vm.validationErr
                     ? _c("validation-err", {
                         staticClass: "text-left w-5/6 sm:w-3/4 mx-auto",
-                        attrs: { error: _vm.validationErr.password }
+                        attrs: { error: _vm.validationErr["input.password"] }
                       })
                     : _vm._e()
                 ],

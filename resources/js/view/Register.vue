@@ -8,20 +8,20 @@
                     <div class="mt-6 w-full">
                         <input v-model="name" type="text"
                             class="py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4"
-                            placeholder="Enter full name" :class="{'border-red-300': inputHasErr('name') }">
-                            <validation-err class="text-left w-5/6 sm:w-3/4 mx-auto" v-if="validationErr" :error="validationErr.name"></validation-err>
+                            placeholder="Enter full name" :class="{'border-red-300': inputHasErr('input.name') }">
+                            <validation-err class="text-left w-5/6 sm:w-3/4 mx-auto" v-if="validationErr" :error="validationErr[`input.name`]"></validation-err>
                     </div>
                     <div class="mt-4 w-full">
                         <input v-model="email"  type="text"
                             class="py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4"
-                            placeholder="Enter email" :class="{'border-red-300': inputHasErr('email') }">
-                            <validation-err class="text-left w-5/6 sm:w-3/4 mx-auto" v-if="validationErr" :error="validationErr.email"></validation-err>
+                            placeholder="Enter email" :class="{'border-red-300': inputHasErr('input.email') }">
+                            <validation-err class="text-left w-5/6 sm:w-3/4 mx-auto" v-if="validationErr" :error="validationErr[`input.email`]"></validation-err>
                     </div>
                     <div class="mt-4 w-full">
                         <input v-model="password"  type="password"
                             class="py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4"
-                            placeholder="Enter password" :class="{'border-red-300': inputHasErr('password') }">
-                            <validation-err class="text-left w-5/6 sm:w-3/4 mx-auto" v-if="validationErr" :error="validationErr.password"></validation-err>
+                            placeholder="Enter password" :class="{'border-red-300': inputHasErr('input.password') }">
+                            <validation-err class="text-left w-5/6 sm:w-3/4 mx-auto" v-if="validationErr" :error="validationErr[`input.password`]"></validation-err>
                     </div>
                     <div class="mt-4 w-full">
                         <input v-model="password_confirmation"

@@ -21,12 +21,7 @@ type Mutation {
 
     login(email:String @rules(apply:["required","string"]),password:String @rules(apply:["required","string"])): User!
     logout: User @guard
-    register(
-        name:String @rules(apply:["required", "string", "max:255"]),
-        email:String  @rules(apply:["required", "string", "email", "max:255", "unique:users"]),
-        password:String @rules(apply:["required", "string", "min:8", "confirmed"]),
-        password_confirmation:String
-        ): User! @event(dispatch: "Illuminate\\Auth\\Events\\Registered")
+    register(input:registerInput @spread): User! @event(dispatch: "Illuminate\\Auth\\Events\\Registered")
 
 }
 
@@ -78,4 +73,11 @@ input createBoardInput {
     title: String! @rules(apply:["required", "string", "max:255"])
     color: String! @rules(apply:["required", "string", "max:255"])
     owner_id: ID!  @rules(apply:["required", "integer", "min:1"])
+}
+
+input registerInput{
+    name:String @rules(apply:["required", "string", "max:255"]),
+    email:String  @rules(apply:["required", "string", "email", "max:255", "unique:users,email"]),
+    password:String @rules(apply:["required", "string", "min:8", "confirmed"]),
+    password_confirmation:String
 }
