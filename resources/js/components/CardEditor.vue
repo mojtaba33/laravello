@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-on-clickaway="cancel">
         <textarea ref="editor"
             @input="$emit('input',$event.target.value)" :value="value"
             @keyup.esc="cancel"
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { directive as onClickaway } from 'vue-clickaway';
 export default {
     props:['value','label'],
     mounted() {
@@ -27,6 +28,9 @@ export default {
         {
             this.$emit('cancel');
         }
+    },
+    directives: {
+        onClickaway: onClickaway,
     },
 }
 </script>

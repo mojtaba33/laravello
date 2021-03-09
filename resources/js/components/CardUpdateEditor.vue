@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="!loading">
-            <CardEditor v-model="title" @save="updateCard" @cancel="closeEditor" v-on-clickaway="closeEditor" label="Save Card"></CardEditor>
+            <CardEditor v-model="title" @save="updateCard" @cancel="closeEditor" label="Save Card"></CardEditor>
         </div>
         <div v-else>
             <loading class="w-5 h-5 mt-2 mx-auto"></loading>
@@ -12,7 +12,6 @@
 import CardEditor from './CardEditor';
 import UpdateCard from './../graphql/UpdateCard.gql';
 import {CARD_UPDATED_EVENT} from './../query-events';
-import { directive as onClickaway } from 'vue-clickaway';
 export default {
     props:{
         card:Object
@@ -27,9 +26,6 @@ export default {
         title : null,
         loading : false
     }),
-    directives: {
-        onClickaway: onClickaway,
-    },
     methods:{
         async updateCard()
         {

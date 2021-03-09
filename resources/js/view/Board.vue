@@ -11,6 +11,8 @@
                     @card-deleted="updateQueryCache"
                 ></List>
 
+                <AddList></AddList>
+
             </div>
 
         </section>
@@ -19,6 +21,7 @@
 <script>
 import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
+import AddList from './../components/AddList';
 import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT } from '../query-events';
 import NavBar from './../components/Nav';
 import {colorMap500} from './../utility.js';
@@ -46,7 +49,7 @@ export default {
         className: "bg-purple-500",
     }),
     components:{
-        List,NavBar
+        List,NavBar,AddList
     },
     methods: {
         updateQueryCache(event)
