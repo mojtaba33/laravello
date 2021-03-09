@@ -7,7 +7,7 @@
             </svg>
             <span>Add new list</span>
         </div>
-        <CardEditor @save="createList" :value="title" @input="title = $event" label="Add list" v-if="showEditor && !loading" @cancel="showEditor = false" class="-mt-2"></CardEditor>
+        <CardEditor @save="createList" :value="title" @input="title = $event" label="Add list" v-if="showEditor && !loading" @cancel="showEditor = false" class="-mt-2 bg-gray-200 p-2 rounded-sm"></CardEditor>
     </div>
 </template>
 

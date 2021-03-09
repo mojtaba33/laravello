@@ -8071,6 +8071,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value', 'label'],
@@ -8122,6 +8128,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8336,6 +8350,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38927,7 +38948,7 @@ var render = function() {
       _vm._v(" "),
       _vm.showEditor && !_vm.loading
         ? _c("CardEditor", {
-            staticClass: "-mt-2",
+            staticClass: "-mt-2 bg-gray-200 p-2 rounded-sm",
             attrs: { value: _vm.title, label: "Add list" },
             on: {
               save: _vm.createList,
@@ -39387,7 +39408,7 @@ var render = function() {
         ref: "editor",
         staticClass:
           "bg-white hover:text-black text-gray-900 p-2 mt-2 border-none resize-none outline-none rounded-md shadow-sm text-sm w-full focus:shadow-md transition-all",
-        attrs: { placeholder: "Enter a title for this card" },
+        attrs: { placeholder: "Enter a title" },
         domProps: { value: _vm.value },
         on: {
           input: function($event) {
@@ -39414,30 +39435,55 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "bg-indigo-800 hover:bg-indigo-700 text-white py-1 px-2 mt-1 rounded-sm border-none outline-none focus:outline-none",
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.save($event)
+      _c("div", { staticClass: "flex justify-start items-center" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "bg-indigo-800 hover:bg-indigo-700 text-white py-1 px-2 mt-1 rounded-sm border-none outline-none focus:outline-none",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.save($event)
+              }
             }
-          }
-        },
-        [_vm._v(_vm._s(_vm.label))]
-      ),
-      _vm._v(" "),
-      _c(
-        "span",
-        {
-          staticClass:
-            "bg-gray-300 hover:text-gray-600 text-gray-500 cursor-pointer px-3 rounded-sm shadow-sm font-bold py-1 text-lg",
-          on: { click: _vm.cancel }
-        },
-        [_vm._v("x")]
-      )
+          },
+          [_vm._v(_vm._s(_vm.label))]
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass:
+              "bg-transparent hover:text-gray-600 mt-1 ml-1 text-gray-500 cursor-pointer rounded-sm p-2",
+            on: { click: _vm.cancel }
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "w-5 h-5",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M6 18L18 6M6 6l12 12"
+                  }
+                })
+              ]
+            )
+          ]
+        )
+      ])
     ]
   )
 }
@@ -39488,24 +39534,72 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "mr-1 font-bold text-gray-400 cursor-pointer hover:text-yellow-500",
+                            "mr-1 font-bold text-gray-400 cursor-pointer hover:text-yellow-500 flex justify-center items-center",
                           on: {
                             click: function($event) {
                               _vm.showEditor = true
                             }
                           }
                         },
-                        [_vm._v("U")]
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "w-5 h-5",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                fill: "none",
+                                viewBox: "0 0 24 24",
+                                stroke: "currentColor"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d:
+                                    "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
                         "div",
                         {
                           staticClass:
-                            "font-bold text-gray-400 cursor-pointer hover:text-red-500",
+                            "font-bold text-gray-400 cursor-pointer hover:text-red-500 flex justify-center items-center",
                           on: { click: _vm.deleteCard }
                         },
-                        [_vm._v("D")]
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "w-5 h-5",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                fill: "none",
+                                viewBox: "0 0 24 24",
+                                stroke: "currentColor"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d:
+                                    "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                }
+                              })
+                            ]
+                          )
+                        ]
                       )
                     ]
                   )
@@ -39603,26 +39697,45 @@ var render = function() {
     "div",
     { staticClass: "bg-gray-200 p-2 rounded-sm shadow-md mr-3 list" },
     [
-      _c(
-        "div",
-        { staticClass: "flex justify-between items-baseline w-full " },
-        [
-          _c(
-            "h3",
-            { staticClass: "text-black font-bold text-sm cursor-default" },
-            [_vm._v(_vm._s(_vm.list.title))]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass:
-                "text-gray-500 font-bold text-md hover:text-black p-1 cursor-pointer"
-            },
-            [_vm._v("x")]
-          )
-        ]
-      ),
+      _c("div", { staticClass: "flex justify-between items-center w-full " }, [
+        _c(
+          "h3",
+          { staticClass: "text-black font-bold text-sm cursor-default" },
+          [_vm._v(_vm._s(_vm.list.title))]
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass:
+              "text-gray-400 font-bold text-md hover:text-gray-500 p-1 cursor-pointer"
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "w-4 h-4",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M6 18L18 6M6 6l12 12"
+                  }
+                })
+              ]
+            )
+          ]
+        )
+      ]),
       _vm._v(" "),
       _vm._l(_vm.list.cards, function(card) {
         return _c("CardItem", {
@@ -39650,14 +39763,39 @@ var render = function() {
             "div",
             {
               staticClass:
-                "w-auto p-1 mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer",
+                "w-auto p-1 flex justify-start items-center mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer",
               on: {
                 click: function($event) {
                   _vm.showCardEditor = true
                 }
               }
             },
-            [_vm._v("\n        Add new card\n    ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "w-4 h-4",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "none",
+                    viewBox: "0 0 24 24",
+                    stroke: "currentColor"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      d: "M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c("span", [_vm._v("Add new card")])
+            ]
           )
         : _vm._e(),
       _vm._v(" "),
