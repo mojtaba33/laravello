@@ -1,0 +1,23 @@
+mutation createList($title:String!,$board_id:ID!)
+{
+    createList(title:$title,board_id:$board_id)
+    {
+        id
+        title
+        board{
+            id
+            title
+            owner{
+                id
+            }
+        }
+        cards{
+            id
+            title
+            order
+            owner{
+                id
+            }
+        }
+    }
+}

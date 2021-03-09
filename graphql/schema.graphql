@@ -17,6 +17,8 @@ type Mutation {
     deleteCard(id: ID!): Card! @delete @can(ability:"delete",find:id)
     updateCard(id: ID!,title: String): Card! @update @can(ability:"update",find:id)
 
+    createList(title:String!,board_id:ID!): CardList! @create
+
     createBoard(input:createBoardInput! @spread): Board! @guard
 
     login(email:String @rules(apply:["required","string"]),password:String @rules(apply:["required","string"])): User!

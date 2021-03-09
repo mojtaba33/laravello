@@ -11,7 +11,7 @@
                     @card-deleted="updateQueryCache"
                 ></List>
 
-                <AddList></AddList>
+                <AddList :boardId="board.id" @list-added="updateQueryCache"></AddList>
 
             </div>
 
@@ -22,7 +22,7 @@
 import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
 import AddList from './../components/AddList';
-import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT } from '../query-events';
+import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT ,LIST_ADDED_EVENT} from '../query-events';
 import NavBar from './../components/Nav';
 import {colorMap500} from './../utility.js';
 export default {
@@ -54,7 +54,6 @@ export default {
     methods: {
         updateQueryCache(event)
         {
-
             const data = event.store.readQuery({
                 query: BoardQuery,
                 variables: {
@@ -62,7 +61,7 @@ export default {
                 },
             });
 
-            const list = data.board.lists.find( list => list.id == event.list_id );
+            const list = data.board.lists.find( list => list.id == event?.list_id );
 
             switch (event.type) {
                 case CARD_ADDED_EVENT:
@@ -74,6 +73,9 @@ export default {
                 case CARD_UPDATED_EVENT:
                     let card = list.cards.find(card => card.id == event.card.id);
                     card.title = event.card.title;
+                    break;
+                case LIST_ADDED_EVENT:
+                    data.board.lists.push(event.list);
                     break;
             }
 
