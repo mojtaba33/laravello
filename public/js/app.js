@@ -38292,36 +38292,38 @@ var render = function() {
                   "px-2 w-64 absolute rounded-sm bg-gray-100 top-8 z-10 shadow-md overflow-y-auto"
               },
               [
-                _vm._l(_vm.userBoards, function(board, i) {
-                  return _c(
-                    "router-link",
-                    {
-                      key: "board-d-" + i,
-                      staticClass:
-                        "text-gray-700 my-2 flex justify-start items-center rounded-sm cursor-pointer",
-                      class: _vm.colorMap100[board.color],
-                      attrs: {
-                        to: { name: "board", params: { id: board.id } },
-                        "active-class": "border-2 border-gray-300"
-                      },
-                      nativeOn: {
-                        click: function($event) {
-                          _vm.showBoards = false
-                        }
-                      }
-                    },
-                    [
-                      _c("div", {
-                        staticClass: "w-8 h-8 rounded-sm rounded-r-none",
-                        class: _vm.colorMap200[board.color]
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "ml-2 text-xs font-bold" }, [
-                        _vm._v(_vm._s(board.title))
-                      ])
-                    ]
-                  )
-                }),
+                _vm.$apollo.queries.userBoards.loading
+                  ? _c("loading", { staticClass: "w-5 h-5 m-auto my-2" })
+                  : _vm._l(_vm.userBoards, function(board, i) {
+                      return _c(
+                        "router-link",
+                        {
+                          key: "board-d-" + i,
+                          staticClass:
+                            "text-gray-700 my-2 flex justify-start items-center rounded-sm cursor-pointer",
+                          class: _vm.colorMap100[board.color],
+                          attrs: {
+                            to: { name: "board", params: { id: board.id } },
+                            "active-class": "border-2 border-gray-300"
+                          },
+                          nativeOn: {
+                            click: function($event) {
+                              _vm.showBoards = false
+                            }
+                          }
+                        },
+                        [
+                          _c("div", {
+                            staticClass: "w-8 h-8 rounded-sm rounded-r-none",
+                            class: _vm.colorMap200[board.color]
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "ml-2 text-xs font-bold" }, [
+                            _vm._v(_vm._s(board.title))
+                          ])
+                        ]
+                      )
+                    }),
                 _vm._v(" "),
                 _c(
                   "div",
