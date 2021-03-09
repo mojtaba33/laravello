@@ -7658,6 +7658,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     close: function close() {
       this.showBoards = false;
+    },
+    updateQueryCache: function updateQueryCache(event) {
+      var data = event.store.readQuery({
+        query: (_graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
+        variables: {
+          owner_id: Number(this.userId)
+        }
+      });
+      data.userBoards.push(event.board);
+      event.store.writeQuery({
+        query: (_graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
+        data: data,
+        variables: {
+          owner_id: Number(this.userId)
+        }
+      });
     }
   }
 });
@@ -7675,7 +7691,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _utility__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../utility */ "./resources/js/utility.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utility__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utility */ "./resources/js/utility.js");
+/* harmony import */ var _graphql_CreateBoard_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/CreateBoard.gql */ "./resources/js/graphql/CreateBoard.gql");
+/* harmony import */ var _graphql_CreateBoard_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_CreateBoard_gql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _mixins_errors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../mixins/errors */ "./resources/js/mixins/errors.js");
+/* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../query-events */ "./resources/js/query-events.js");
+/* harmony import */ var _global_Loading_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./global/Loading.vue */ "./resources/js/components/global/Loading.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
 //
 //
 //
@@ -7700,7 +7732,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Loading: _global_Loading_vue__WEBPACK_IMPORTED_MODULE_5__.default
+  },
+  mixins: [_mixins_errors__WEBPACK_IMPORTED_MODULE_3__.default],
   props: {
     show: {
       Boolean: Boolean
@@ -7708,9 +7749,68 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      colors: _utility__WEBPACK_IMPORTED_MODULE_0__.colorMap500,
-      bgColor: "red"
+      title: null,
+      colors: _utility__WEBPACK_IMPORTED_MODULE_1__.colorMap500,
+      bgColor: "red",
+      loading: false
     };
+  },
+  methods: {
+    create: function create() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.error = null;
+                _this.validationErr = null;
+                _this.loading = true;
+                _context.prev = 3;
+                _context.next = 6;
+                return _this.$apollo.mutate({
+                  mutation: (_graphql_CreateBoard_gql__WEBPACK_IMPORTED_MODULE_2___default()),
+                  variables: {
+                    title: _this.title,
+                    color: _this.bgColor
+                  },
+                  update: function update(store, _ref) {
+                    var createBoard = _ref.data.createBoard;
+
+                    _this.$emit('board-added', {
+                      store: store,
+                      board: createBoard
+                    });
+                  }
+                });
+
+              case 6:
+                _this.close();
+
+                _context.next = 12;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](3);
+
+                _this.errorHandler((0,_utility__WEBPACK_IMPORTED_MODULE_1__.gqlError)(_context.t0));
+
+              case 12:
+                _this.loading = false;
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[3, 9]]);
+      }))();
+    },
+    close: function close() {
+      this.$emit('closed');
+    }
   }
 });
 
@@ -8493,7 +8593,10 @@ __webpack_require__.r(__webpack_exports__);
 
       event.store.writeQuery({
         query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
-        data: data
+        data: data,
+        variables: {
+          id: Number(this.$route.params.id)
+        }
       });
     }
   },
@@ -9874,6 +9977,138 @@ module.exports = function (data, opts) {
     module.exports = doc;
     
         module.exports.BoardWithListsAndCards = oneQuery(doc, "BoardWithListsAndCards");
+        
+
+
+/***/ }),
+
+/***/ "./resources/js/graphql/CreateBoard.gql":
+/*!**********************************************!*\
+  !*** ./resources/js/graphql/CreateBoard.gql ***!
+  \**********************************************/
+/***/ ((module) => {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createBoard"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"color"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createBoard"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"color"},"value":{"kind":"Variable","name":{"kind":"Name","value":"color"}}}]}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":137}};
+    doc.loc.source = {"body":"mutation createBoard($title:String,$color:String){\n  createBoard(input:{title:$title,color:$color})\n  {\n    title\n    id\n    color\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports.createBoard = oneQuery(doc, "createBoard");
         
 
 
@@ -38289,7 +38524,7 @@ var render = function() {
                   }
                 ],
                 staticClass:
-                  "px-2 w-64 absolute rounded-sm bg-gray-100 top-8 z-10 shadow-md overflow-y-auto"
+                  "px-2 max-h-96 w-64 absolute rounded-sm bg-gray-100 top-8 z-10 shadow-md overflow-y-auto"
               },
               [
                 _vm.$apollo.queries.userBoards.loading
@@ -38349,6 +38584,9 @@ var render = function() {
         on: {
           closed: function($event) {
             _vm.showModal = false
+          },
+          "board-added": function($event) {
+            return _vm.updateQueryCache($event)
           }
         }
       })
@@ -38382,56 +38620,26 @@ var render = function() {
   return _vm.show
     ? _c(
         "modal",
-        {
-          on: {
-            closed: function($event) {
-              return _vm.$emit("closed")
-            }
-          }
-        },
+        { on: { closed: _vm.close } },
         [
-          _c(
-            "div",
-            { staticClass: "2xl:w-1/4 md:w-1/3 w-1/2 bg-transparent" },
-            [
-              _c(
+          _vm.loading
+            ? _c("loading", { staticClass: "w-10 h-10 " })
+            : _c(
                 "div",
-                {
-                  staticClass:
-                    "flex lg:justify-start lg:items-stretch lg:flex-row flex-col justify-start items-start"
-                },
+                { staticClass: "2xl:w-1/4 md:w-1/3 w-1/2 bg-transparent" },
                 [
                   _c(
                     "div",
                     {
-                      staticClass: "p-5 rounded-sm w-full lg:w-2/3 m-1",
-                      class: [_vm.colors[_vm.bgColor]]
+                      staticClass:
+                        "flex lg:justify-start lg:items-stretch lg:flex-row flex-col justify-start items-start"
                     },
                     [
-                      _c("input", {
-                        staticClass:
-                          "bg-input w-full placeholder-white text-sm rounded-sm px-2 py-1 focus:outline-none",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Enter board title"
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "m-1 flex flex-wrap justify-start items-center w-full lg:w-1/3"
-                    },
-                    _vm._l(_vm.colors, function(className, color) {
-                      return _c(
+                      _c(
                         "div",
                         {
-                          key: "color-" + color,
-                          staticClass: "w-8 h-8 mr-1 mb-1 rounded-sm relative",
-                          class: [className]
+                          staticClass: "p-5 rounded-sm w-full lg:w-2/3 m-1",
+                          class: [_vm.colors[_vm.bgColor]]
                         },
                         [
                           _c("input", {
@@ -38439,70 +38647,184 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.bgColor,
-                                expression: "bgColor"
+                                value: _vm.title,
+                                expression: "title"
                               }
                             ],
                             staticClass:
-                              "bg-transparent absolute opacity-0 top-0 left-0 h-8 w-8 cursor-pointer",
-                            attrs: { type: "radio" },
-                            domProps: {
-                              value: color,
-                              checked: _vm._q(_vm.bgColor, color)
+                              "bg-input w-full placeholder-white text-sm rounded-sm px-2 py-1 focus:outline-none",
+                            attrs: {
+                              type: "text",
+                              placeholder: "Enter board title"
                             },
+                            domProps: { value: _vm.title },
                             on: {
-                              change: function($event) {
-                                _vm.bgColor = color
+                              keyup: [
+                                function($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.create($event)
+                                },
+                                function($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "esc",
+                                      27,
+                                      $event.key,
+                                      ["Esc", "Escape"]
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.close($event)
+                                }
+                              ],
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.title = $event.target.value
                               }
                             }
                           }),
                           _vm._v(" "),
-                          color == _vm.bgColor
-                            ? _c(
-                                "svg",
-                                {
-                                  staticClass: "w-8 h-8",
-                                  attrs: {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    fill: "none",
-                                    viewBox: "0 0 24 24",
-                                    stroke: "currentColor"
+                          _vm._l(_vm.inputHasErr("input.title"), function(
+                            err,
+                            i
+                          ) {
+                            return _c(
+                              "div",
+                              {
+                                key: "err-" + i,
+                                staticClass:
+                                  "text-xs mt-1 opacity-75 text-white"
+                              },
+                              [_vm._v(_vm._s(err))]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm._l(_vm.inputHasErr("input.color"), function(
+                            err,
+                            i
+                          ) {
+                            return _c(
+                              "div",
+                              {
+                                key: "err-" + i,
+                                staticClass:
+                                  "text-xs mt-1 opacity-75 text-white"
+                              },
+                              [_vm._v(_vm._s(err))]
+                            )
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "m-1 flex flex-wrap justify-start items-center w-full lg:w-1/3"
+                        },
+                        _vm._l(_vm.colors, function(className, color) {
+                          return _c(
+                            "div",
+                            {
+                              key: "color-" + color,
+                              staticClass:
+                                "w-8 h-8 mr-1 mb-1 rounded-sm relative",
+                              class: [className]
+                            },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.bgColor,
+                                    expression: "bgColor"
                                   }
+                                ],
+                                staticClass:
+                                  "bg-transparent absolute opacity-0 top-0 left-0 h-8 w-8 cursor-pointer",
+                                attrs: { type: "radio" },
+                                domProps: {
+                                  value: color,
+                                  checked: _vm._q(_vm.bgColor, color)
                                 },
-                                [
-                                  _c("path", {
-                                    attrs: {
-                                      "stroke-linecap": "round",
-                                      "stroke-linejoin": "round",
-                                      "stroke-width": "2",
-                                      d: "M5 13l4 4L19 7"
-                                    }
-                                  })
-                                ]
-                              )
-                            : _vm._e()
-                        ]
+                                on: {
+                                  change: function($event) {
+                                    _vm.bgColor = color
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              color == _vm.bgColor
+                                ? _c(
+                                    "svg",
+                                    {
+                                      staticClass: "w-8 h-8",
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          "stroke-linecap": "round",
+                                          "stroke-linejoin": "round",
+                                          "stroke-width": "2",
+                                          d: "M5 13l4 4L19 7"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          )
+                        }),
+                        0
                       )
-                    }),
-                    0
-                  )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "m-1" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:opacity-80",
+                        class: [_vm.colors[_vm.bgColor]],
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.create($event)
+                          }
+                        }
+                      },
+                      [_vm._v("Create")]
+                    )
+                  ])
                 ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "m-1" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:opacity-80",
-                    class: [_vm.colors[_vm.bgColor]]
-                  },
-                  [_vm._v("Create")]
-                )
-              ])
-            ]
-          )
-        ]
+              )
+        ],
+        1
       )
     : _vm._e()
 }

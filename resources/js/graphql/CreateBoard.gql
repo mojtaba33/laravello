@@ -1,0 +1,8 @@
+mutation createBoard($title:String,$color:String){
+  createBoard(input:{title:$title,color:$color})
+  {
+    title
+    id
+    color
+  }
+}
