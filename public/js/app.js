@@ -8341,9 +8341,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _CardItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardItem */ "./resources/js/components/CardItem.vue");
-/* harmony import */ var _CardAddEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardAddEditor */ "./resources/js/components/CardAddEditor.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _CardItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardItem */ "./resources/js/components/CardItem.vue");
+/* harmony import */ var _CardAddEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardAddEditor */ "./resources/js/components/CardAddEditor.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _graphql_deleteList_gql__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../graphql/deleteList.gql */ "./resources/js/graphql/deleteList.gql");
+/* harmony import */ var _graphql_deleteList_gql__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_graphql_deleteList_gql__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../query-events */ "./resources/js/query-events.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -8376,6 +8387,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+
+
 
 
 
@@ -8385,17 +8402,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      showCardEditor: false
+      showCardEditor: false,
+      loading: false
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)({
     canCreateCard: function canCreateCard(state) {
       return state.auth.user.id == this.list.board.owner.id;
     }
   })),
   components: {
-    CardItem: _CardItem__WEBPACK_IMPORTED_MODULE_0__.default,
-    CardAddEditor: _CardAddEditor__WEBPACK_IMPORTED_MODULE_1__.default
+    CardItem: _CardItem__WEBPACK_IMPORTED_MODULE_1__.default,
+    CardAddEditor: _CardAddEditor__WEBPACK_IMPORTED_MODULE_2__.default
+  },
+  methods: {
+    deleteList: function deleteList() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.loading = true;
+                _context.prev = 1;
+                _context.next = 4;
+                return _this.$apollo.mutate({
+                  mutation: (_graphql_deleteList_gql__WEBPACK_IMPORTED_MODULE_3___default()),
+                  variables: {
+                    id: _this.list.id
+                  },
+                  update: function update(store, _ref) {
+                    var deleteList = _ref.data.deleteList;
+
+                    _this.$emit('list-deleted', {
+                      store: store,
+                      type: _query_events__WEBPACK_IMPORTED_MODULE_4__.LIST_DELETED_EVENT,
+                      list: deleteList
+                    });
+                  }
+                });
+
+              case 4:
+                _context.next = 8;
+                break;
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](1);
+
+              case 8:
+                _this.loading = false;
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 6]]);
+      }))();
+    }
   }
 });
 
@@ -8652,6 +8718,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -8719,6 +8786,12 @@ __webpack_require__.r(__webpack_exports__);
 
         case _query_events__WEBPACK_IMPORTED_MODULE_3__.LIST_ADDED_EVENT:
           data.board.lists.push(event.list);
+          break;
+
+        case _query_events__WEBPACK_IMPORTED_MODULE_3__.LIST_DELETED_EVENT:
+          data.board.lists = data.board.lists.filter(function (list) {
+            return list.id !== event.list.id;
+          });
           break;
       }
 
@@ -9268,12 +9341,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "CARD_ADDED_EVENT": () => (/* binding */ CARD_ADDED_EVENT),
 /* harmony export */   "CARD_DELETED_EVENT": () => (/* binding */ CARD_DELETED_EVENT),
 /* harmony export */   "CARD_UPDATED_EVENT": () => (/* binding */ CARD_UPDATED_EVENT),
-/* harmony export */   "LIST_ADDED_EVENT": () => (/* binding */ LIST_ADDED_EVENT)
+/* harmony export */   "LIST_ADDED_EVENT": () => (/* binding */ LIST_ADDED_EVENT),
+/* harmony export */   "LIST_DELETED_EVENT": () => (/* binding */ LIST_DELETED_EVENT)
 /* harmony export */ });
 var CARD_ADDED_EVENT = "CARD_ADDED_EVENT";
 var CARD_DELETED_EVENT = "CARD_DELETED_EVENT";
 var CARD_UPDATED_EVENT = "CARD_UPDATED_EVENT";
 var LIST_ADDED_EVENT = "LIST_ADDED_EVENT";
+var LIST_DELETED_EVENT = "LIST_DELETED_EVENT";
 
 /***/ }),
 
@@ -11056,6 +11131,138 @@ module.exports = function (data, opts) {
     module.exports = doc;
     
         module.exports.UpdateCard = oneQuery(doc, "UpdateCard");
+        
+
+
+/***/ }),
+
+/***/ "./resources/js/graphql/deleteList.gql":
+/*!*********************************************!*\
+  !*** ./resources/js/graphql/deleteList.gql ***!
+  \*********************************************/
+/***/ ((module) => {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteList"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteList"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":69}};
+    doc.loc.source = {"body":"mutation deleteList($id:ID!)\n{\n  deleteList(id:$id)\n  {\n    id\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports.deleteList = oneQuery(doc, "deleteList");
         
 
 
@@ -39695,134 +39902,152 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "bg-gray-200 p-2 rounded-sm shadow-md mr-3 list" },
+    { staticClass: "list" },
     [
-      _c("div", { staticClass: "flex justify-between items-center w-full " }, [
-        _c(
-          "h3",
-          { staticClass: "text-black font-bold text-sm cursor-default" },
-          [_vm._v(_vm._s(_vm.list.title))]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass:
-              "text-gray-400 font-bold text-md hover:text-gray-500 p-1 cursor-pointer"
-          },
-          [
-            _c(
-              "svg",
-              {
-                staticClass: "w-4 h-4",
-                attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
-                  fill: "none",
-                  viewBox: "0 0 24 24",
-                  stroke: "currentColor"
-                }
-              },
-              [
-                _c("path", {
-                  attrs: {
-                    "stroke-linecap": "round",
-                    "stroke-linejoin": "round",
-                    "stroke-width": "2",
-                    d: "M6 18L18 6M6 6l12 12"
-                  }
-                })
-              ]
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _vm._l(_vm.list.cards, function(card) {
-        return _c("CardItem", {
-          key: "card-" + card.id,
-          attrs: { card: card },
-          on: {
-            "card-updated": function($event) {
-              return _vm.$emit(
-                "card-updated",
-                Object.assign({}, $event, { list_id: _vm.list.id })
-              )
-            },
-            "card-deleted": function($event) {
-              return _vm.$emit(
-                "card-deleted",
-                Object.assign({}, $event, { list_id: _vm.list.id })
-              )
-            }
-          }
-        })
-      }),
-      _vm._v(" "),
-      !_vm.showCardEditor && _vm.canCreateCard
-        ? _c(
+      _vm.loading
+        ? _c("loading", { staticClass: "w-5 h-5 m-auto" })
+        : _c(
             "div",
-            {
-              staticClass:
-                "w-auto p-1 flex justify-start items-center mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer",
-              on: {
-                click: function($event) {
-                  _vm.showCardEditor = true
-                }
-              }
-            },
+            { staticClass: "bg-gray-200 p-2 rounded-sm shadow-md mr-3 " },
             [
               _c(
-                "svg",
-                {
-                  staticClass: "w-4 h-4",
-                  attrs: {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    fill: "none",
-                    viewBox: "0 0 24 24",
-                    stroke: "currentColor"
-                  }
-                },
+                "div",
+                { staticClass: "flex justify-between items-center w-full " },
                 [
-                  _c("path", {
-                    attrs: {
-                      "stroke-linecap": "round",
-                      "stroke-linejoin": "round",
-                      "stroke-width": "2",
-                      d: "M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    }
-                  })
+                  _c(
+                    "h3",
+                    {
+                      staticClass: "text-black font-bold text-sm cursor-default"
+                    },
+                    [_vm._v(_vm._s(_vm.list.title))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "text-gray-400 font-bold text-md hover:text-gray-500 p-1 cursor-pointer",
+                      on: { click: _vm.deleteList }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "w-4 h-4",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            fill: "none",
+                            viewBox: "0 0 24 24",
+                            stroke: "currentColor"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              "stroke-linecap": "round",
+                              "stroke-linejoin": "round",
+                              "stroke-width": "2",
+                              d: "M6 18L18 6M6 6l12 12"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
                 ]
               ),
               _vm._v(" "),
-              _c("span", [_vm._v("Add new card")])
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.showCardEditor
-        ? _c(
-            "div",
-            [
-              _c("CardAddEditor", {
-                attrs: { list: _vm.list },
-                on: {
-                  "close-editor": function($event) {
-                    _vm.showCardEditor = false
-                  },
-                  "card-added": function($event) {
-                    return _vm.$emit(
-                      "card-added",
-                      Object.assign({}, $event, { list_id: _vm.list.id })
-                    )
+              _vm._l(_vm.list.cards, function(card) {
+                return _c("CardItem", {
+                  key: "card-" + card.id,
+                  attrs: { card: card },
+                  on: {
+                    "card-updated": function($event) {
+                      return _vm.$emit(
+                        "card-updated",
+                        Object.assign({}, $event, { list_id: _vm.list.id })
+                      )
+                    },
+                    "card-deleted": function($event) {
+                      return _vm.$emit(
+                        "card-deleted",
+                        Object.assign({}, $event, { list_id: _vm.list.id })
+                      )
+                    }
                   }
-                }
-              })
+                })
+              }),
+              _vm._v(" "),
+              !_vm.showCardEditor && _vm.canCreateCard
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "w-auto p-1 flex justify-start items-center mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer",
+                      on: {
+                        click: function($event) {
+                          _vm.showCardEditor = true
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "w-4 h-4",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            fill: "none",
+                            viewBox: "0 0 24 24",
+                            stroke: "currentColor"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              "stroke-linecap": "round",
+                              "stroke-linejoin": "round",
+                              "stroke-width": "2",
+                              d: "M12 6v6m0 0v6m0-6h6m-6 0H6"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Add new card")])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.showCardEditor
+                ? _c(
+                    "div",
+                    [
+                      _c("CardAddEditor", {
+                        attrs: { list: _vm.list },
+                        on: {
+                          "close-editor": function($event) {
+                            _vm.showCardEditor = false
+                          },
+                          "card-added": function($event) {
+                            return _vm.$emit(
+                              "card-added",
+                              Object.assign({}, $event, {
+                                list_id: _vm.list.id
+                              })
+                            )
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
-            1
+            2
           )
-        : _vm._e()
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -40138,7 +40363,8 @@ var render = function() {
                       attrs: { list: list },
                       on: {
                         "card-added": _vm.updateQueryCache,
-                        "card-deleted": _vm.updateQueryCache
+                        "card-deleted": _vm.updateQueryCache,
+                        "list-deleted": _vm.updateQueryCache
                       }
                     })
                   }),

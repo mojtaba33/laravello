@@ -18,6 +18,7 @@ type Mutation {
     updateCard(id: ID!,title: String): Card! @update @can(ability:"update",find:id)
 
     createList(title:String!,board_id:ID!): CardList! @create
+    deleteList(id:ID!): CardList! @delete @can(ability:"delete",find:id,model:"App\\Models\\CardList")
 
     createBoard(input:createBoardInput! @spread): Board! @guard
 

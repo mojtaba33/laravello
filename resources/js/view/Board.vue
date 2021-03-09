@@ -9,6 +9,7 @@
                 <List v-for="list in board.lists" :key="`list-${list.id}`" :list="list"
                     @card-added="updateQueryCache"
                     @card-deleted="updateQueryCache"
+                    @list-deleted="updateQueryCache"
                 ></List>
 
                 <AddList :boardId="board.id" @list-added="updateQueryCache"></AddList>
@@ -22,7 +23,7 @@
 import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
 import AddList from './../components/AddList';
-import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT ,LIST_ADDED_EVENT} from '../query-events';
+import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT ,LIST_ADDED_EVENT, LIST_DELETED_EVENT} from '../query-events';
 import NavBar from './../components/Nav';
 import {colorMap500} from './../utility.js';
 export default {
@@ -76,6 +77,9 @@ export default {
                     break;
                 case LIST_ADDED_EVENT:
                     data.board.lists.push(event.list);
+                    break;
+                case LIST_DELETED_EVENT:
+                    data.board.lists = data.board.lists.filter(list => list.id !== event.list.id);
                     break;
             }
 
