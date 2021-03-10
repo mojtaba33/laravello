@@ -7,7 +7,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID! @eq): User! @find
-    board(id: ID! @eq): Board! @find
+    board(id: ID! @eq): Board! @find @guard @can(ability:"view",find:id,model:"App\\Models\\Board")
     userBoards(owner_id: Int! @where):[Board!]! @all @can(ability:"viewBoards",find:owner_id,model:"App\\Models\\User")
     me: User @auth
 }
