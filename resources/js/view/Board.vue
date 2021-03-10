@@ -12,7 +12,7 @@
                     @list-deleted="updateQueryCache"
                 ></List>
 
-                <AddList :boardId="board.id" @list-added="updateQueryCache"></AddList>
+                <AddList :boardId="board.id" @list-added="updateQueryCache" v-if="userId == board.owner.id"></AddList>
 
             </div>
 
@@ -26,13 +26,14 @@ import AddList from './../components/AddList';
 import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT ,LIST_ADDED_EVENT, LIST_DELETED_EVENT} from '../query-events';
 import NavBar from './../components/Nav';
 import {colorMap500} from './../utility.js';
+import { mapState } from 'vuex';
 export default {
     apollo:{
         board:{
             query:BoardQuery,
             variables(){
                 return {
-                    id: Number(this.$route.params.id)
+                    id: this.boardId
                 }
             },
             result(ApolloQueryResult)
@@ -49,6 +50,14 @@ export default {
         board:null,
         className: "bg-purple-500",
     }),
+    computed:{
+        ...mapState({
+            userId: state => state.auth.user.id,
+        }),
+        boardId(){
+            return Number(this.$route.params.id);
+        }
+    },
     components:{
         List,NavBar,AddList
     },
@@ -58,7 +67,7 @@ export default {
             const data = event.store.readQuery({
                 query: BoardQuery,
                 variables: {
-                    id: Number(this.$route.params.id),
+                    id: this.boardId,
                 },
             });
 
@@ -87,7 +96,7 @@ export default {
                 query: BoardQuery ,
                 data,
                 variables: {
-                    id: Number(this.$route.params.id),
+                    id: this.boardId,
                 },
             });
         }

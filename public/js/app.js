@@ -8698,6 +8698,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../query-events */ "./resources/js/query-events.js");
 /* harmony import */ var _components_Nav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../components/Nav */ "./resources/js/components/Nav.vue");
 /* harmony import */ var _utility_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../utility.js */ "./resources/js/utility.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -8719,6 +8726,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -8731,7 +8739,7 @@ __webpack_require__.r(__webpack_exports__);
       query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
       variables: function variables() {
         return {
-          id: Number(this.$route.params.id)
+          id: this.boardId
         };
       },
       result: function result(ApolloQueryResult) {
@@ -8749,6 +8757,15 @@ __webpack_require__.r(__webpack_exports__);
       className: "bg-purple-500"
     };
   },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapState)({
+    userId: function userId(state) {
+      return state.auth.user.id;
+    }
+  })), {}, {
+    boardId: function boardId() {
+      return Number(this.$route.params.id);
+    }
+  }),
   components: {
     List: _components_List__WEBPACK_IMPORTED_MODULE_1__.default,
     NavBar: _components_Nav__WEBPACK_IMPORTED_MODULE_4__.default,
@@ -8759,7 +8776,7 @@ __webpack_require__.r(__webpack_exports__);
       var data = event.store.readQuery({
         query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
         variables: {
-          id: Number(this.$route.params.id)
+          id: this.boardId
         }
       });
       var list = data.board.lists.find(function (list) {
@@ -8799,7 +8816,7 @@ __webpack_require__.r(__webpack_exports__);
         query: (_graphql_BoardWithListsAndCards_gql__WEBPACK_IMPORTED_MODULE_0___default()),
         data: data,
         variables: {
-          id: Number(this.$route.params.id)
+          id: this.boardId
         }
       });
     }
@@ -40369,10 +40386,12 @@ var render = function() {
                     })
                   }),
                   _vm._v(" "),
-                  _c("AddList", {
-                    attrs: { boardId: _vm.board.id },
-                    on: { "list-added": _vm.updateQueryCache }
-                  })
+                  _vm.userId == _vm.board.owner.id
+                    ? _c("AddList", {
+                        attrs: { boardId: _vm.board.id },
+                        on: { "list-added": _vm.updateQueryCache }
+                      })
+                    : _vm._e()
                 ],
                 2
               )
