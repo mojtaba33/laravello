@@ -16,6 +16,7 @@ export function gqlError(error)
     if(authorization)
     {
         router.push({name:'not-found'});
+        return;
     }
 
     let response = {

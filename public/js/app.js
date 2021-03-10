@@ -8749,7 +8749,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           "class": [this.className]
         });
       },
-      error: function error(_error) {//
+      error: function error(_error) {
+        this.$route.name != 'not-found' ? this.$router.push({
+          name: 'not-found'
+        }) : '';
       }
     }
   },
@@ -9522,6 +9525,7 @@ function gqlError(error) {
     _routes__WEBPACK_IMPORTED_MODULE_1__.router.push({
       name: 'not-found'
     });
+    return;
   }
 
   var response = {
@@ -40267,30 +40271,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "h-screen w-full flex justify-center items-center" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c("h1", { staticClass: "text-9xl text-purple-500" }, [
+  return _c(
+    "div",
+    { staticClass: "h-screen w-full flex justify-center items-center" },
+    [
+      _c(
+        "div",
+        { staticClass: "text-center" },
+        [
+          _c("h1", { staticClass: "text-9xl text-purple-500 font-bold" }, [
             _vm._v("404")
           ]),
           _vm._v(" "),
-          _c("h3", { staticClass: "mt-3 text-purple-500" }, [
-            _vm._v("not found")
-          ])
-        ])
-      ]
-    )
-  }
-]
+          _c(
+            "h3",
+            { staticClass: "mt-3 uppercase font-bold text-purple-500" },
+            [_vm._v("not found")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass:
+                "text-gray-400 hover:text-gray-500 hover:underline mt-3 block text-base",
+              attrs: { to: { name: "home" } }
+            },
+            [_vm._v("Take me to the home page")]
+          )
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
