@@ -8407,7 +8407,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)({
-    canCreateCard: function canCreateCard(state) {
+    isBoardOwner: function isBoardOwner(state) {
       return state.auth.user.id == this.list.board.owner.id;
     }
   })),
@@ -39939,38 +39939,40 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.list.title))]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "text-gray-400 font-bold text-md hover:text-gray-500 p-1 cursor-pointer",
-                      on: { click: _vm.deleteList }
-                    },
-                    [
-                      _c(
-                        "svg",
+                  _vm.isBoardOwner
+                    ? _c(
+                        "span",
                         {
-                          staticClass: "w-4 h-4",
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            fill: "none",
-                            viewBox: "0 0 24 24",
-                            stroke: "currentColor"
-                          }
+                          staticClass:
+                            "text-gray-400 font-bold text-md hover:text-gray-500 p-1 cursor-pointer",
+                          on: { click: _vm.deleteList }
                         },
                         [
-                          _c("path", {
-                            attrs: {
-                              "stroke-linecap": "round",
-                              "stroke-linejoin": "round",
-                              "stroke-width": "2",
-                              d: "M6 18L18 6M6 6l12 12"
-                            }
-                          })
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "w-4 h-4",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                fill: "none",
+                                viewBox: "0 0 24 24",
+                                stroke: "currentColor"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                  "stroke-width": "2",
+                                  d: "M6 18L18 6M6 6l12 12"
+                                }
+                              })
+                            ]
+                          )
                         ]
                       )
-                    ]
-                  )
+                    : _vm._e()
                 ]
               ),
               _vm._v(" "),
@@ -39995,7 +39997,7 @@ var render = function() {
                 })
               }),
               _vm._v(" "),
-              !_vm.showCardEditor && _vm.canCreateCard
+              !_vm.showCardEditor && _vm.isBoardOwner
                 ? _c(
                     "div",
                     {
