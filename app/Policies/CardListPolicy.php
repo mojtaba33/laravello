@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Board;
 use App\Models\CardList;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -39,9 +40,9 @@ class CardListPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user,$args)
     {
-        //
+        return $user->id === Board::findOrFail($args['board_id'])->owner_id;
     }
 
     /**
