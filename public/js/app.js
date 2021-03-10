@@ -8749,10 +8749,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           "class": [this.className]
         });
       },
-      error: function error(_error) {
-        this.$router.push({
-          name: 'not-found'
-        });
+      error: function error(_error) {//
       }
     }
   },
@@ -9420,8 +9417,11 @@ var routes = [{
   name: 'register',
   component: _view_Register__WEBPACK_IMPORTED_MODULE_2__.default
 }, {
-  path: '*',
+  path: '/not-found',
   name: 'not-found',
+  component: _components_global_404__WEBPACK_IMPORTED_MODULE_4__.default
+}, {
+  path: '*',
   component: _components_global_404__WEBPACK_IMPORTED_MODULE_4__.default
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__.default({
@@ -9504,6 +9504,11 @@ function gqlError(error) {
   var serverErr = !errors.some(function (err) {
     return err.hasOwnProperty('path');
   });
+  var authorization = errors.some(function (err) {
+    var _err$extensions;
+
+    return (err === null || err === void 0 ? void 0 : (_err$extensions = err.extensions) === null || _err$extensions === void 0 ? void 0 : _err$extensions.category) === "authorization";
+  });
 
   if (error !== null && error !== void 0 && error.networkError && (error === null || error === void 0 ? void 0 : error.networkError.statusCode) === 419) {
     _store__WEBPACK_IMPORTED_MODULE_0__.store.dispatch("auth/logout");
@@ -9511,6 +9516,12 @@ function gqlError(error) {
       name: 'login'
     });
     return;
+  }
+
+  if (authorization) {
+    _routes__WEBPACK_IMPORTED_MODULE_1__.router.push({
+      name: 'not-found'
+    });
   }
 
   var response = {
@@ -9526,16 +9537,16 @@ function gqlError(error) {
     };
   } else {
     if (errors.some(function (err) {
-      var _err$extensions;
+      var _err$extensions2;
 
-      return ((_err$extensions = err.extensions) === null || _err$extensions === void 0 ? void 0 : _err$extensions.category) == "validation";
+      return ((_err$extensions2 = err.extensions) === null || _err$extensions2 === void 0 ? void 0 : _err$extensions2.category) == "validation";
     })) {
       var _errors$filter$0$exte;
 
       var validationErr = ((_errors$filter$0$exte = errors.filter(function (err) {
-        var _err$extensions2;
+        var _err$extensions3;
 
-        return ((_err$extensions2 = err.extensions) === null || _err$extensions2 === void 0 ? void 0 : _err$extensions2.category) == "validation";
+        return ((_err$extensions3 = err.extensions) === null || _err$extensions3 === void 0 ? void 0 : _err$extensions3.category) == "validation";
       })[0].extensions) === null || _errors$filter$0$exte === void 0 ? void 0 : _errors$filter$0$exte.validation) || [];
       response.validation.message = validationErr;
     } else {

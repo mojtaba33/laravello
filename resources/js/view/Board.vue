@@ -45,7 +45,7 @@ export default {
                 });
             },
             error (error) {
-                this.$router.push({name:'not-found'});
+                //
             },
         }
     },

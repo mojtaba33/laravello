@@ -4,12 +4,18 @@ export function gqlError(error)
 {
     const errors = error?.graphQLErrors || [];
     const serverErr = !errors.some(err => err.hasOwnProperty('path'));
+    const authorization = errors.some(err => err?.extensions?.category === "authorization")
 
     if(error?.networkError && error?.networkError.statusCode === 419)
     {
         store.dispatch("auth/logout");
         router.push({name:'login'});
         return;
+    }
+
+    if(authorization)
+    {
+        router.push({name:'not-found'});
     }
 
     let response = {
