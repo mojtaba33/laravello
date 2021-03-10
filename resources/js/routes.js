@@ -4,6 +4,7 @@ import Board from './view/Board';
 import Login from './view/Login';
 import Register from './view/Register';
 import Index from './view/Index';
+import NotFound from './components/global/404';
 Vue.use(VueRouter)
 
 const routes = [
@@ -11,6 +12,7 @@ const routes = [
     { path: '/boards/:id', name: 'board', component: Board },
     { path: '/login', name:'login' ,component: Login },
     { path: '/register', name:'register' ,component: Register },
+    { path: '*', name:'not-found' ,component: NotFound }
 ];
 
 export const router = new VueRouter({

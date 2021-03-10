@@ -43,7 +43,10 @@ export default {
                 this.$store.dispatch("addBodyClass",{
                     class : [this.className]
                 });
-            }
+            },
+            error (error) {
+                this.$router.push({name:'not-found'});
+            },
         }
     },
     data:() => ({
