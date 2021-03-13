@@ -21,6 +21,7 @@ type Mutation {
     deleteList(id:ID!): CardList! @delete @can(ability:"delete",find:id,model:"App\\Models\\CardList")
 
     createBoard(input:createBoardInput! @spread): Board! @guard
+    deleteBoard(id:ID!): Board! @delete @gaurd @can(ability:"delete",find:id)
 
     login(email:String @rules(apply:["required","string"]),password:String @rules(apply:["required","string"])): User!
     logout: User @guard

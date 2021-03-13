@@ -65,7 +65,7 @@ class BoardPolicy
      */
     public function delete(User $user, Board $board)
     {
-        //
+        return $user->id === $board->owner_id;
     }
 
     /**
