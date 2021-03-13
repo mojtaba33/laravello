@@ -589,8 +589,8 @@ video {
   background-color: hsla(0, 0%, 100%, 0.3);
   border-radius: 0.125rem;
   font-weight: 700;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
   outline: 2px solid transparent;
   outline-offset: 2px;
   padding-top: 0.25rem;
@@ -598,6 +598,13 @@ video {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .header-btn {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 }
 
 .header-btn:focus {

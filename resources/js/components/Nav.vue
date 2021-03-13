@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex justify-between text-white py-1 header">
+    <nav class="flex justify-between text-white py-1 header" id="nav-bar">
         <div class="ml-3 w-1/3 flex justify-start items-center">
             <div class="relative">
                 <BoardDropdown v-if="isLoggedIn"></BoardDropdown>
