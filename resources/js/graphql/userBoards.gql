@@ -1,4 +1,4 @@
-query UserBaords($owner_id:Int!) {
+query UserBaords($owner_id:ID!) {
   userBoards(owner_id:$owner_id){
     id
     title

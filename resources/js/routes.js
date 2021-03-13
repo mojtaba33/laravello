@@ -13,7 +13,7 @@ const routes = [
     { path: '/boards/:id', name: 'board', component: Board },
     { path: '/login', name:'login' ,component: Login },
     { path: '/register', name:'register' ,component: Register },
-    { path: '/boards', name:'boards' ,component: Boards },
+    { path: '/my-boards', name:'my-boards' ,component: Boards },
     { path: '/not-found', name:'not-found' ,component: NotFound },
     { path: '*',component: NotFound },
 ];

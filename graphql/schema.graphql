@@ -8,7 +8,7 @@ type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID! @eq): User! @find
     board(id: ID! @eq): Board! @find @guard @can(ability:"view",find:id,model:"App\\Models\\Board")
-    userBoards(owner_id: Int! @where):[Board!]! @all @can(ability:"viewBoards",find:owner_id,model:"App\\Models\\User")
+    userBoards(owner_id: ID! @where):[Board!]! @all @guard @can(ability:"viewBoards",find:owner_id,model:"App\\Models\\User")
     me: User @auth
 }
 

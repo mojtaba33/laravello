@@ -8900,6 +8900,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _components_Nav__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../components/Nav */ "./resources/js/components/Nav.vue");
 /* harmony import */ var _mixins_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/class */ "./resources/js/mixins/class.js");
+/* harmony import */ var _graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/userBoards.gql */ "./resources/js/graphql/userBoards.gql");
+/* harmony import */ var _graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _utility__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../utility */ "./resources/js/utility.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -8912,6 +8916,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -8935,17 +8945,46 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [_mixins_class__WEBPACK_IMPORTED_MODULE_1__.default],
+  apollo: {
+    userBoards: {
+      query: (_graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_2___default()),
+      variables: function variables() {
+        return {
+          owner_id: Number(this.userId)
+        };
+      },
+      error: function error(_error) {
+        this.$route.name != 'not-found' ? this.$router.push({
+          name: 'not-found'
+        }) : '';
+      }
+    }
+  },
   components: {
     NavBar: _components_Nav__WEBPACK_IMPORTED_MODULE_0__.default
   },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
+    userId: function userId(state) {
+      return state.auth.user.id;
+    }
+  })), {}, {
+    loading: function loading() {
+      return this.$apollo.queries.userBoards.loading;
+    }
+  }),
   data: function data() {
     return {
       className: ["bg-gray-100"],
-      navClass: ['bg-blue-600', 'shadow-lg']
+      navClass: ['bg-blue-600', 'shadow-lg'],
+      colorMap500: _utility__WEBPACK_IMPORTED_MODULE_3__.colorMap500
     };
   },
   mounted: function mounted() {
@@ -8955,7 +8994,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     (_document$querySelect = document.querySelector('#nav-bar').classList).add.apply(_document$querySelect, _toConsumableArray(this.navClass));
   },
-  destroyed: function destroyed() {
+  beforeDestroy: function beforeDestroy() {
     var _document$querySelect2;
 
     document.querySelector('#nav-bar').classList.add('header');
@@ -9547,8 +9586,8 @@ var routes = [{
   name: 'register',
   component: _view_Register__WEBPACK_IMPORTED_MODULE_2__.default
 }, {
-  path: '/boards',
-  name: 'boards',
+  path: '/my-boards',
+  name: 'my-boards',
   component: _view_Boards__WEBPACK_IMPORTED_MODULE_4__.default
 }, {
   path: '/not-found',
@@ -9974,7 +10013,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.title[data-v-7c56a289]{\n    color: rgba(255, 255, 255, 0.7);\n}\n#title-holder:hover > .title[data-v-7c56a289]{\n    color: ;color: rgba(255, 255, 255, 0.9);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.title[data-v-7c56a289]{\n    color: rgba(255, 255, 255, 0.7);\n}\n#title-holder:hover > .title[data-v-7c56a289]{\n    color: rgba(255, 255, 255, 0.9);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11608,8 +11647,8 @@ module.exports = function (data, opts) {
 /***/ ((module) => {
 
 
-    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserBaords"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"owner_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userBoards"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"owner_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"owner_id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"title"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":102}};
-    doc.loc.source = {"body":"query UserBaords($owner_id:Int!) {\n  userBoards(owner_id:$owner_id){\n    id\n    title\n    color\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserBaords"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"owner_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userBoards"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"owner_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"owner_id"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"title"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":101}};
+    doc.loc.source = {"body":"query UserBaords($owner_id:ID!) {\n  userBoards(owner_id:$owner_id){\n    id\n    title\n    color\n  }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
   
 
     var names = {};
@@ -40657,10 +40696,11 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c(
-                  "div",
+                  "router-link",
                   {
                     staticClass:
-                      "text-sm mb-1 cursor-pointer hover:bg-gray-200 px-1 py-1 rounded-sm"
+                      "text-sm mb-1 block cursor-pointer hover:bg-gray-200 px-1 py-1 rounded-sm",
+                    attrs: { to: { name: "my-boards" } }
                   },
                   [_vm._v("Board management")]
                 ),
@@ -40676,7 +40716,8 @@ var render = function() {
                   },
                   [_vm._v("Log out")]
                 )
-              ]
+              ],
+              1
             )
           : _vm._e()
       ])
@@ -41003,81 +41044,97 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "opacity-100" },
     [
       _c("NavBar"),
       _vm._v(" "),
-      _c("div", { staticClass: "md:w-3/4 w-full m-auto my-10" }, [
-        _c("div", [
-          _c(
-            "h1",
-            { staticClass: "md:text-2xl text-lg text-gray-700 font-bold ml-2" },
-            [_vm._v("Boards : ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "flex justify-start items-stretch flex-wrap mt-5" },
-            _vm._l(15, function(n) {
-              return _c(
+      _vm.loading
+        ? _c("loading", { staticClass: "m-auto mt-5 w-8 h-8" })
+        : _c("div", { staticClass: "md:w-3/4 w-full m-auto my-10" }, [
+            _c("div", [
+              _c(
+                "h1",
+                {
+                  staticClass:
+                    "md:text-2xl text-lg text-gray-700 font-bold ml-2"
+                },
+                [_vm._v("Boards : ")]
+              ),
+              _vm._v(" "),
+              _c(
                 "div",
                 {
-                  key: n,
-                  staticClass:
-                    "lg:w-1/5 lg:h-36 md:w-1/3 md:h-28 w-1/2 h-24 flex justify-center items-center"
+                  staticClass: "flex justify-start items-stretch flex-wrap mt-5"
                 },
-                [
-                  _c(
+                _vm._l(_vm.userBoards, function(board, i) {
+                  return _c(
                     "div",
                     {
+                      key: i,
                       staticClass:
-                        "w-11/12 h-5/6 bg-indigo-500 flex justify-center items-center shadow-md rounded-sm relative",
-                      attrs: { id: "title-holder" }
+                        "lg:w-1/5 lg:h-36 md:w-1/3 md:h-28 w-1/2 h-24 flex justify-center items-center"
                     },
                     [
                       _c(
                         "div",
                         {
-                          staticClass: "absolute right-2 top-2 cursor-pointer"
+                          staticClass:
+                            "w-11/12 h-5/6 flex justify-center items-center shadow-md rounded-sm relative",
+                          class: [_vm.colorMap500[board.color]],
+                          attrs: { id: "title-holder" }
                         },
                         [
                           _c(
-                            "svg",
+                            "div",
                             {
-                              staticClass: "w-4 h-4 title",
-                              attrs: {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                fill: "none",
-                                viewBox: "0 0 24 24",
-                                stroke: "currentColor"
-                              }
+                              staticClass:
+                                "absolute right-2 top-2 cursor-pointer z-10"
                             },
                             [
-                              _c("path", {
-                                attrs: {
-                                  "stroke-linecap": "round",
-                                  "stroke-linejoin": "round",
-                                  "stroke-width": "2",
-                                  d: "M6 18L18 6M6 6l12 12"
-                                }
-                              })
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "w-4 h-4 title",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    fill: "none",
+                                    viewBox: "0 0 24 24",
+                                    stroke: "currentColor"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      "stroke-linecap": "round",
+                                      "stroke-linejoin": "round",
+                                      "stroke-width": "2",
+                                      d: "M6 18L18 6M6 6l12 12"
+                                    }
+                                  })
+                                ]
+                              )
                             ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "title block",
+                              attrs: {
+                                to: { name: "board", params: { id: board.id } }
+                              }
+                            },
+                            [_vm._v(_vm._s(board.title))]
                           )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "title" }, [
-                        _vm._v("Board Name")
-                      ])
+                        ],
+                        1
+                      )
                     ]
                   )
-                ]
+                }),
+                0
               )
-            }),
-            0
-          )
-        ])
-      ])
+            ])
+          ])
     ],
     1
   )
