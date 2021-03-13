@@ -8,11 +8,7 @@
                 <div class="flex justify-start items-stretch flex-wrap mt-5">
                     <div class="lg:w-1/5 lg:h-36 md:w-1/3 md:h-28 w-1/2 h-24 flex justify-center items-center" v-for="(board,i) in userBoards" :key="i">
                         <div :class="[colorMap500[board.color]]" class="w-11/12 h-5/6 flex justify-center items-center shadow-md rounded-sm relative" id="title-holder">
-                            <div class="absolute right-2 top-2 cursor-pointer z-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 title">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </div>
+                            <DeleteBoard :id="board.id" @deleted="updateQueryCache"></DeleteBoard>
                             <router-link :to="{name:'board',params:{id:board.id}}" class="title block">{{ board.title }}</router-link>
                         </div>
                     </div>
@@ -28,6 +24,7 @@ import BodyClass from './../mixins/class';
 import userBoards from './../graphql/userBoards.gql';
 import { mapState } from 'vuex';
 import {colorMap500} from './../utility';
+import DeleteBoard from './../components/DeleteBoard';
 export default {
     mixins:[BodyClass],
     apollo:{
@@ -44,7 +41,7 @@ export default {
         }
     },
     components:{
-        NavBar
+        NavBar,DeleteBoard
     },
     computed:{
         ...mapState({
@@ -59,6 +56,27 @@ export default {
         navClass: ['bg-blue-600','shadow-lg'],
         colorMap500:colorMap500
     }),
+    methods: {
+        updateQueryCache(event)
+        {
+            const data = event.store.readQuery({
+                query : userBoards,
+                variables:{
+                    owner_id: Number(this.userId),
+                },
+            });
+
+            data.userBoards = data.userBoards.filter(board => board.id != event.board.id);
+
+            event.store.writeQuery({
+                query: userBoards,
+                data,
+                variables:{
+                    owner_id: Number(this.userId),
+                },
+            });
+        }
+    },
     mounted()
     {
         document.querySelector('#nav-bar').classList.remove('header');
