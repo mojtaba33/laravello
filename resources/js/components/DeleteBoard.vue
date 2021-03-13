@@ -8,6 +8,7 @@
 </template>
 <script>
 import deleteBoard from './../graphql/DeleteBoard.gql';
+import {BOARD_DELETED_EVENT} from './../query-events';
 export default {
     props:['id'],
     data:() => ({
@@ -27,6 +28,7 @@ export default {
                     {
                         this.$emit('deleted',{
                             store,
+                            type : BOARD_DELETED_EVENT,
                             board:deleteBoard,
                         });
                     }

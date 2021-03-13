@@ -7886,6 +7886,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                     _this.$emit('board-added', {
                       store: store,
+                      type: _query_events__WEBPACK_IMPORTED_MODULE_4__.BOARD_ADDED_EVENT,
                       board: createBoard
                     });
                   }
@@ -7905,8 +7906,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 12:
                 _this.loading = false;
+                _this.title = null;
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -8345,6 +8347,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _graphql_DeleteBoard_gql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../graphql/DeleteBoard.gql */ "./resources/js/graphql/DeleteBoard.gql");
 /* harmony import */ var _graphql_DeleteBoard_gql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_graphql_DeleteBoard_gql__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../query-events */ "./resources/js/query-events.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -8359,6 +8362,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['id'],
@@ -8389,6 +8393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                     _this.$emit('deleted', {
                       store: store,
+                      type: _query_events__WEBPACK_IMPORTED_MODULE_2__.BOARD_DELETED_EVENT,
                       board: deleteBoard
                     });
                   }
@@ -8630,6 +8635,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
+/* harmony import */ var _graphql_logout_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/logout.gql */ "./resources/js/graphql/logout.gql");
+/* harmony import */ var _graphql_logout_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_logout_gql__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -8650,6 +8657,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -8675,7 +8683,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 0;
                 _context.next = 3;
                 return _this.$apollo.mutate({
-                  mutation: logoutQuery
+                  mutation: (_graphql_logout_gql__WEBPACK_IMPORTED_MODULE_2___default())
                 });
 
               case 3:
@@ -8990,9 +8998,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/class */ "./resources/js/mixins/class.js");
 /* harmony import */ var _graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/userBoards.gql */ "./resources/js/graphql/userBoards.gql");
 /* harmony import */ var _graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _utility__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../utility */ "./resources/js/utility.js");
 /* harmony import */ var _components_DeleteBoard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../components/DeleteBoard */ "./resources/js/components/DeleteBoard.vue");
+/* harmony import */ var _components_BoardModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../components/BoardModal */ "./resources/js/components/BoardModal.vue");
+/* harmony import */ var _query_events__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../query-events */ "./resources/js/query-events.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -9031,6 +9041,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -9048,17 +9069,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         };
       },
       error: function error(_error) {
-        this.$route.name != 'not-found' ? this.$router.push({
-          name: 'not-found'
-        }) : '';
+        console.log((0,_utility__WEBPACK_IMPORTED_MODULE_3__.gqlError)(_error)); //this.$route.name != 'not-found' ? this.$router.push({name:'not-found'}) : '';
       }
     }
   },
   components: {
     NavBar: _components_Nav__WEBPACK_IMPORTED_MODULE_0__.default,
-    DeleteBoard: _components_DeleteBoard__WEBPACK_IMPORTED_MODULE_4__.default
+    DeleteBoard: _components_DeleteBoard__WEBPACK_IMPORTED_MODULE_4__.default,
+    BoardModal: _components_BoardModal__WEBPACK_IMPORTED_MODULE_5__.default
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapState)({
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)({
     userId: function userId(state) {
       return state.auth.user.id;
     }
@@ -9071,7 +9091,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       className: ["bg-gray-100"],
       navClass: ['bg-blue-600', 'shadow-lg'],
-      colorMap500: _utility__WEBPACK_IMPORTED_MODULE_3__.colorMap500
+      colorMap500: _utility__WEBPACK_IMPORTED_MODULE_3__.colorMap500,
+      showModal: false
     };
   },
   methods: {
@@ -9082,9 +9103,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           owner_id: Number(this.userId)
         }
       });
-      data.userBoards = data.userBoards.filter(function (board) {
-        return board.id != event.board.id;
-      });
+
+      switch (event.type) {
+        case _query_events__WEBPACK_IMPORTED_MODULE_6__.BOARD_DELETED_EVENT:
+          data.userBoards = data.userBoards.filter(function (board) {
+            return board.id != event.board.id;
+          });
+          break;
+
+        case _query_events__WEBPACK_IMPORTED_MODULE_6__.BOARD_ADDED_EVENT:
+          data.userBoards.push(event.board);
+          break;
+      }
+
       event.store.writeQuery({
         query: (_graphql_userBoards_gql__WEBPACK_IMPORTED_MODULE_2___default()),
         data: data,
@@ -9638,13 +9669,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "CARD_DELETED_EVENT": () => (/* binding */ CARD_DELETED_EVENT),
 /* harmony export */   "CARD_UPDATED_EVENT": () => (/* binding */ CARD_UPDATED_EVENT),
 /* harmony export */   "LIST_ADDED_EVENT": () => (/* binding */ LIST_ADDED_EVENT),
-/* harmony export */   "LIST_DELETED_EVENT": () => (/* binding */ LIST_DELETED_EVENT)
+/* harmony export */   "LIST_DELETED_EVENT": () => (/* binding */ LIST_DELETED_EVENT),
+/* harmony export */   "BOARD_ADDED_EVENT": () => (/* binding */ BOARD_ADDED_EVENT),
+/* harmony export */   "BOARD_DELETED_EVENT": () => (/* binding */ BOARD_DELETED_EVENT)
 /* harmony export */ });
 var CARD_ADDED_EVENT = "CARD_ADDED_EVENT";
 var CARD_DELETED_EVENT = "CARD_DELETED_EVENT";
 var CARD_UPDATED_EVENT = "CARD_UPDATED_EVENT";
 var LIST_ADDED_EVENT = "LIST_ADDED_EVENT";
 var LIST_DELETED_EVENT = "LIST_DELETED_EVENT";
+var BOARD_ADDED_EVENT = "BOARD_ADDED_EVENT";
+var BOARD_DELETED_EVENT = "BOARD_DELETED_EVENT";
 
 /***/ }),
 
@@ -9707,6 +9742,9 @@ var routes = [{
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_7__.default({
   routes: routes,
   mode: 'history'
+});
+router.beforeEach(function (to, from, next) {
+  console.log(to);
 });
 
 /***/ }),
@@ -40148,7 +40186,7 @@ var render = function() {
                               }
                             ],
                             staticClass:
-                              "bg-input w-full placeholder-white text-sm rounded-sm px-2 py-1 focus:outline-none",
+                              "bg-input w-full text-white placeholder-white text-sm rounded-sm px-2 py-1 focus:outline-none",
                             attrs: {
                               type: "text",
                               placeholder: "Enter board title"
@@ -40272,7 +40310,7 @@ var render = function() {
                                 ? _c(
                                     "svg",
                                     {
-                                      staticClass: "w-8 h-8",
+                                      staticClass: "w-8 h-8 text-white",
                                       attrs: {
                                         xmlns: "http://www.w3.org/2000/svg",
                                         fill: "none",
@@ -41052,7 +41090,7 @@ var render = function() {
                   }
                 ],
                 staticClass:
-                  "p-2 w-48 max-w-sm text-left text-gray-500 absolute rounded-sm bg-gray-100 top-8 right-0 z-10 shadow-md"
+                  "p-2 w-48 max-w-sm text-left text-gray-500 z-30 absolute rounded-sm bg-gray-100 top-8 right-0 z-10 shadow-md"
               },
               [
                 _c(
@@ -41418,65 +41456,135 @@ var render = function() {
       _vm._v(" "),
       _vm.loading
         ? _c("loading", { staticClass: "m-auto mt-5 w-8 h-8" })
-        : _c("div", { staticClass: "md:w-3/4 w-full m-auto my-10" }, [
-            _c("div", [
-              _c(
-                "h1",
-                {
-                  staticClass:
-                    "md:text-2xl text-lg text-gray-700 font-bold ml-2"
-                },
-                [_vm._v("Boards : ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "flex justify-start items-stretch flex-wrap mt-5"
-                },
-                _vm._l(_vm.userBoards, function(board, i) {
-                  return _c(
-                    "div",
-                    {
-                      key: i,
-                      staticClass:
-                        "lg:w-1/5 lg:h-36 md:w-1/3 md:h-28 w-1/2 h-24 flex justify-center items-center"
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "w-11/12 h-5/6 flex justify-center items-center shadow-md rounded-sm relative",
-                          class: [_vm.colorMap500[board.color]],
-                          attrs: { id: "title-holder" }
-                        },
-                        [
-                          _c("DeleteBoard", {
-                            attrs: { id: board.id },
-                            on: { deleted: _vm.updateQueryCache }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "title block",
+        : _c(
+            "div",
+            { staticClass: "md:w-3/4 w-full m-auto my-10" },
+            [
+              _c("div", [
+                _c(
+                  "div",
+                  { staticClass: "mx-2 flex justify-between items-center" },
+                  [
+                    _c(
+                      "h1",
+                      {
+                        staticClass:
+                          "md:text-2xl text-lg text-gray-700 font-bold"
+                      },
+                      [_vm._v("Boards : ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "cursor-pointer flex justify-end items-center text-gray-400 underline hover:text-gray-500",
+                        on: {
+                          click: function($event) {
+                            _vm.showModal = true
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "w-4 h-4",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              fill: "none",
+                              viewBox: "0 0 24 24",
+                              stroke: "currentColor"
+                            }
+                          },
+                          [
+                            _c("path", {
                               attrs: {
-                                to: { name: "board", params: { id: board.id } }
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round",
+                                "stroke-width": "2",
+                                d: "M12 6v6m0 0v6m0-6h6m-6 0H6"
                               }
-                            },
-                            [_vm._v(_vm._s(board.title))]
-                          )
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                }),
-                0
-              )
-            ])
-          ])
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", [_vm._v("Create new board")])
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "flex justify-start items-stretch flex-wrap mt-5"
+                  },
+                  _vm._l(_vm.userBoards, function(board, i) {
+                    return _c(
+                      "div",
+                      {
+                        key: i,
+                        staticClass:
+                          "lg:w-1/5 lg:h-36 md:w-1/3 md:h-28 w-1/2 h-24 flex justify-center items-center"
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "w-11/12 h-5/6 flex justify-center items-center shadow-md rounded-sm relative",
+                            class: [_vm.colorMap500[board.color]],
+                            attrs: { id: "title-holder" }
+                          },
+                          [
+                            _c("DeleteBoard", {
+                              attrs: { id: board.id },
+                              on: {
+                                deleted: function($event) {
+                                  return _vm.updateQueryCache($event)
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "title block",
+                                attrs: {
+                                  to: {
+                                    name: "board",
+                                    params: { id: board.id }
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(board.title))]
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]),
+              _vm._v(" "),
+              _c("BoardModal", {
+                attrs: { show: _vm.showModal },
+                on: {
+                  closed: function($event) {
+                    _vm.showModal = false
+                  },
+                  "board-added": function($event) {
+                    return _vm.updateQueryCache($event)
+                  }
+                }
+              })
+            ],
+            1
+          )
     ],
     1
   )
