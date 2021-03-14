@@ -1,5 +1,6 @@
 import {apolloProvider} from './../apollo';
 import meQuery from './../graphql/Me.gql';
+import {router} from './../routes'
 export default {
     namespaced: true,
     state: () => ({
@@ -35,6 +36,7 @@ export default {
                 name:null,
                 email:null
             });
+            router.push({name:'login'});
         },
         async fetchUser({state,dispatch,commit})
         {

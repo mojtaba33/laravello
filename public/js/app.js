@@ -9949,11 +9949,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../apollo */ "./resources/js/apollo.js");
 /* harmony import */ var _graphql_Me_gql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../graphql/Me.gql */ "./resources/js/graphql/Me.gql");
 /* harmony import */ var _graphql_Me_gql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_Me_gql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../routes */ "./resources/js/routes.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -9992,6 +9994,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: null,
         name: null,
         email: null
+      });
+      _routes__WEBPACK_IMPORTED_MODULE_3__.router.push({
+        name: 'login'
       });
     },
     fetchUser: function fetchUser(_ref3) {
