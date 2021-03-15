@@ -9133,11 +9133,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     (_document$querySelect = document.querySelector('#nav-bar').classList).add.apply(_document$querySelect, _toConsumableArray(this.navClass));
   },
   beforeDestroy: function beforeDestroy() {
-    var _document$querySelect2;
+    var _document$querySelect2, _document$querySelect3, _document$querySelect4, _document$querySelect5;
 
-    document.querySelector('#nav-bar').classList.add('header');
-
-    (_document$querySelect2 = document.querySelector('#nav-bar').classList).remove.apply(_document$querySelect2, _toConsumableArray(this.navClass));
+    (_document$querySelect2 = document.querySelector('#nav-bar')) === null || _document$querySelect2 === void 0 ? void 0 : (_document$querySelect3 = _document$querySelect2.classList) === null || _document$querySelect3 === void 0 ? void 0 : _document$querySelect3.add('header');
+    (_document$querySelect4 = document.querySelector('#nav-bar')) === null || _document$querySelect4 === void 0 ? void 0 : (_document$querySelect5 = _document$querySelect4.classList) === null || _document$querySelect5 === void 0 ? void 0 : _document$querySelect5.remove.apply(_document$querySelect5, _toConsumableArray(this.navClass));
   }
 });
 
@@ -9724,11 +9723,17 @@ var routes = [{
 }, {
   path: '/login',
   name: 'login',
-  component: _view_Login__WEBPACK_IMPORTED_MODULE_1__.default
+  component: _view_Login__WEBPACK_IMPORTED_MODULE_1__.default,
+  meta: {
+    onlyGeust: true
+  }
 }, {
   path: '/register',
   name: 'register',
-  component: _view_Register__WEBPACK_IMPORTED_MODULE_2__.default
+  component: _view_Register__WEBPACK_IMPORTED_MODULE_2__.default,
+  meta: {
+    onlyGeust: true
+  }
 }, {
   path: '/my-boards',
   name: 'my-boards',
@@ -9748,17 +9753,29 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_8__.default({
   routes: routes,
   mode: 'history'
 });
-router.beforeEach(function (to, from, next) {
-  var _to$meta;
+router.beforeResolve(function (to, from, next) {
+  var _to$meta, _to$meta2;
 
   if ((_to$meta = to.meta) !== null && _to$meta !== void 0 && _to$meta.auth) {
-    if (_store__WEBPACK_IMPORTED_MODULE_6__.store.state.auth.isLoggedIn) {
-      next();
-    } else {
-      next({
-        name: 'login'
-      });
-    }
+    _store__WEBPACK_IMPORTED_MODULE_6__.store.dispatch('auth/fetchUser').then(function () {
+      if (_store__WEBPACK_IMPORTED_MODULE_6__.store.state.auth.isLoggedIn) {
+        next();
+      } else {
+        next({
+          name: 'login'
+        });
+      }
+    });
+  } else if ((_to$meta2 = to.meta) !== null && _to$meta2 !== void 0 && _to$meta2.onlyGeust) {
+    _store__WEBPACK_IMPORTED_MODULE_6__.store.dispatch('auth/fetchUser').then(function () {
+      if (_store__WEBPACK_IMPORTED_MODULE_6__.store.state.auth.isLoggedIn) {
+        next({
+          name: 'home'
+        });
+      } else {
+        next();
+      }
+    });
   } else {
     next();
   }

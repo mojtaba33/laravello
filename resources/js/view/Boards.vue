@@ -106,8 +106,8 @@ export default {
         document.querySelector('#nav-bar').classList.add(...this.navClass);
     },
     beforeDestroy() {
-        document.querySelector('#nav-bar').classList.add('header');
-        document.querySelector('#nav-bar').classList.remove(...this.navClass);
+        document.querySelector('#nav-bar')?.classList?.add('header');
+        document.querySelector('#nav-bar')?.classList?.remove(...this.navClass);
     }
 }
 </script>
