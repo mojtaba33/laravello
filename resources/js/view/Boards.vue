@@ -6,7 +6,7 @@
             <div>
                 <div class="mx-2 flex justify-between items-center">
                     <h1 class="md:text-2xl text-lg text-gray-700 font-bold">Boards : </h1>
-                    <div class="cursor-pointer flex justify-end items-center text-gray-400 underline hover:text-gray-500" @click="showModal=true">
+                    <div class="cursor-pointer flex justify-end items-center text-gray-400 underline hover:text-gray-500" @click="showAddBoardModal=true">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
@@ -16,16 +16,20 @@
                 <div class="flex justify-start items-stretch flex-wrap mt-5">
                     <div class="lg:w-1/5 lg:h-36 md:w-1/3 md:h-28 w-1/2 h-24 flex justify-center items-center" v-for="(board,i) in userBoards" :key="i">
                         <div :class="[colorMap500[board.color]]" class="w-11/12 h-5/6 flex justify-center items-center shadow-md rounded-sm relative" id="title-holder">
-                            <div class="absolute right-2 top-2 z-10">
+                            <div class="absolute right-2 top-2 flex justify-end items-center">
+
+                                <UpdateBoard :id="board.id" :boardTitle="board.title" :boardColor="board.color" @board-updated="updateQueryCache($event)"></UpdateBoard>
                                 <DeleteBoard :id="board.id" @deleted="updateQueryCache($event)"></DeleteBoard>
                             </div>
 
                             <router-link :to="{name:'board',params:{id:board.id}}" class="title block">{{ board.title }}</router-link>
                         </div>
                     </div>
+
                 </div>
             </div>
-            <AddBoard :show="showModal" @closed="showModal = false" @board-added="updateQueryCache($event)"></AddBoard>
+            <AddBoard :show="showAddBoardModal" @closed="showAddBoardModal = false" @board-added="updateQueryCache($event)"></AddBoard>
+
         </div>
     </div>
 </template>
@@ -37,8 +41,9 @@ import userBoards from './../graphql/userBoards.gql';
 import { mapState } from 'vuex';
 import {colorMap500, gqlError} from './../utility';
 import DeleteBoard from './../components/DeleteBoard';
+import UpdateBoard from './../components/UpdateBoard';
 import AddBoard from './../components/AddBoard';
-import { BOARD_ADDED_EVENT, BOARD_DELETED_EVENT } from '../query-events';
+import { BOARD_ADDED_EVENT, BOARD_DELETED_EVENT, BOARD_UPDATED_EVENT } from '../query-events';
 export default {
     mixins:[BodyClass],
     apollo:{
@@ -50,13 +55,13 @@ export default {
                 }
             },
             error (error) {
-                console.log(gqlError(error));
+                //console.log(gqlError(error));
                 //this.$route.name != 'not-found' ? this.$router.push({name:'not-found'}) : '';
             }
         }
     },
     components:{
-        NavBar,DeleteBoard,AddBoard
+        NavBar,DeleteBoard,AddBoard,UpdateBoard
     },
     computed:{
         ...mapState({
@@ -70,7 +75,7 @@ export default {
         className: ["bg-gray-100"],
         navClass: ['bg-blue-600','shadow-lg'],
         colorMap500:colorMap500,
-        showModal:false,
+        showAddBoardModal:false,
     }),
     methods: {
         updateQueryCache(event)
@@ -90,9 +95,11 @@ export default {
                 case BOARD_ADDED_EVENT:
                     data.userBoards.push(event.board);
                     break;
+                case BOARD_UPDATED_EVENT:
+                    data.userBoards.find(board => board.id == event.board.id).title = event.board.title;
+                    data.userBoards.find(board => board.id == event.board.id).color = event.board.color;
+                    break;
             }
-
-
 
             event.store.writeQuery({
                 query: userBoards,

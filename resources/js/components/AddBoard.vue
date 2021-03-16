@@ -13,6 +13,7 @@
             :titleErrors = "titleErrors"
             :colorErrors = "colorErrors"
             :loading = "loading"
+            label="save"
         ></BoardModal>
     </div>
 </template>

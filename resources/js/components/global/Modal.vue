@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="fixed top-0 left-0 h-full w-full z-30 modal-bg" @click.self="close">
+        <div class="fixed top-0 left-0 h-full w-full z-50 modal-bg" @click.self="close">
             <div class="w-full h-full flex justify-center items-center bg-transparent" @click.self="close">
                 <slot></slot>
             </div>

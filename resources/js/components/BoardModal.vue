@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="m-1">
-                <button :class="[colors[bgColor]]" @click.prevent="save" class="text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:opacity-80">Create</button>
+                <button :class="[colors[bgColor]]" @click.prevent="save" class="text-white focus:outline-none px-2 py-1 text-sm rounded-sm hover:opacity-80">{{ label }}</button>
             </div>
         </div>
     </modal>
@@ -42,7 +42,8 @@ export default {
         loading:{
             Boolean,
             default : false,
-        }
+        },
+        label:String,
     },
     data:() => ({
         colors : colorMap500,

@@ -84,8 +84,7 @@ export default {
                     list.cards = list.cards.filter( card => card.id != event.card.id );
                     break;
                 case CARD_UPDATED_EVENT:
-                    let card = list.cards.find(card => card.id == event.card.id);
-                    card.title = event.card.title;
+                    list.cards.find(card => card.id == event.card.id).title = event.card.title;
                     break;
                 case LIST_ADDED_EVENT:
                     data.board.lists.push(event.list);
