@@ -40490,7 +40490,7 @@ var render = function() {
           titleErrors: _vm.titleErrors,
           colorErrors: _vm.colorErrors,
           loading: _vm.loading,
-          label: "save"
+          label: "create"
         },
         on: {
           closed: _vm.close,
