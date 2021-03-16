@@ -13,7 +13,7 @@
 
             </div>
         </transition>
-        <BoardModal :show="showModal" @closed="showModal = false" @board-added="updateQueryCache($event)"></BoardModal>
+        <AddBoard :show="showModal" @closed="showModal = false" @board-added="updateQueryCache($event)"></AddBoard>
     </div>
 </template>
 <script>
@@ -21,7 +21,7 @@ import userBoards from './../graphql/userBoards.gql';
 import {mapState} from 'vuex';
 import {colorMap100,colorMap200} from './../utility';
 import { directive as onClickaway } from 'vue-clickaway';
-import BoardModal from './BoardModal';
+import AddBoard from './AddBoard';
 export default {
     apollo:{
         userBoards:{
@@ -37,7 +37,7 @@ export default {
         }
     },
     components:{
-        BoardModal
+        AddBoard
     },
     data:()=>({
         showBoards:false,

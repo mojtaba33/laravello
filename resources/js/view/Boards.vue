@@ -16,13 +16,16 @@
                 <div class="flex justify-start items-stretch flex-wrap mt-5">
                     <div class="lg:w-1/5 lg:h-36 md:w-1/3 md:h-28 w-1/2 h-24 flex justify-center items-center" v-for="(board,i) in userBoards" :key="i">
                         <div :class="[colorMap500[board.color]]" class="w-11/12 h-5/6 flex justify-center items-center shadow-md rounded-sm relative" id="title-holder">
-                            <DeleteBoard :id="board.id" @deleted="updateQueryCache($event)"></DeleteBoard>
+                            <div class="absolute right-2 top-2 z-10">
+                                <DeleteBoard :id="board.id" @deleted="updateQueryCache($event)"></DeleteBoard>
+                            </div>
+
                             <router-link :to="{name:'board',params:{id:board.id}}" class="title block">{{ board.title }}</router-link>
                         </div>
                     </div>
                 </div>
             </div>
-            <BoardModal :show="showModal" @closed="showModal = false" @board-added="updateQueryCache($event)"></BoardModal>
+            <AddBoard :show="showModal" @closed="showModal = false" @board-added="updateQueryCache($event)"></AddBoard>
         </div>
     </div>
 </template>
@@ -34,7 +37,7 @@ import userBoards from './../graphql/userBoards.gql';
 import { mapState } from 'vuex';
 import {colorMap500, gqlError} from './../utility';
 import DeleteBoard from './../components/DeleteBoard';
-import BoardModal from './../components/BoardModal';
+import AddBoard from './../components/AddBoard';
 import { BOARD_ADDED_EVENT, BOARD_DELETED_EVENT } from '../query-events';
 export default {
     mixins:[BodyClass],
@@ -53,7 +56,7 @@ export default {
         }
     },
     components:{
-        NavBar,DeleteBoard,BoardModal
+        NavBar,DeleteBoard,AddBoard
     },
     computed:{
         ...mapState({

@@ -22,6 +22,7 @@ type Mutation {
 
     createBoard(input:createBoardInput! @spread): Board! @guard
     deleteBoard(id:ID!): Board! @delete @guard @can(ability:"delete",find:id)
+    updateBoard(input:updateBoardInput @spread): Board! @update @guard @can(ability:"update",find:id)
 
     login(email:String @rules(apply:["required","string"]),password:String @rules(apply:["required","string"])): User!
     logout: User @guard
@@ -74,6 +75,12 @@ input addCardInput {
 }
 
 input createBoardInput {
+    title: String @rules(apply:["required", "string", "max:255"])
+    color: String @rules(apply:["required", "string", "max:255"])
+}
+
+input updateBoardInput {
+    id:ID!
     title: String @rules(apply:["required", "string", "max:255"])
     color: String @rules(apply:["required", "string", "max:255"])
 }

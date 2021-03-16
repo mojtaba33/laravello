@@ -1,7 +1,7 @@
 <template>
-    <div class="absolute right-2 top-2 cursor-pointer z-10" @click="deleteBoard">
+    <div>
         <loading class="w-4 h-4" v-if="loading"></loading>
-        <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 text-gray-200 hover:text-white">
+        <svg @click="deleteBoard" v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 cursor-pointer  text-gray-200 hover:text-white">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
     </div>

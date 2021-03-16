@@ -1,0 +1,9 @@
+mutation updateBoard($id:ID!,$title:String,$color:String)
+{
+  updateBoard(input:{id:$id,title:$title,color:$color})
+  {
+    id
+    title
+    color
+  }
+}
