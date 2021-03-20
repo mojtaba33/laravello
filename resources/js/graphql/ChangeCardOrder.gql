@@ -1,0 +1,8 @@
+mutation ChangeCardOrder($id:ID!,$order:Int!)
+{
+  changeCardOrder(id:$id,order:$order){
+    id
+    title
+    order
+  }
+}#

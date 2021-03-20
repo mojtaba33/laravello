@@ -23,7 +23,7 @@
 import BoardQuery from './../graphql/BoardWithListsAndCards.gql';
 import List from './../components/List';
 import AddList from './../components/AddList';
-import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT ,LIST_ADDED_EVENT, LIST_DELETED_EVENT} from '../query-events';
+import { CARD_ADDED_EVENT, CARD_DELETED_EVENT, CARD_UPDATED_EVENT ,LIST_ADDED_EVENT, LIST_DELETED_EVENT, CARD_ORDER_EVENT} from '../query-events';
 import NavBar from './../components/Nav';
 import {colorMap500} from './../utility.js';
 import { mapState } from 'vuex';
@@ -92,6 +92,9 @@ export default {
                 case LIST_DELETED_EVENT:
                     data.board.lists = data.board.lists.filter(list => list.id !== event.list.id);
                     break;
+                case CARD_ORDER_EVENT:
+                    list.cards.find(card => card.id == event.card.id).order = event.card.order;
+                    breake;
             }
 
             event.store.writeQuery({

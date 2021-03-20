@@ -6,5 +6,8 @@ mutation addCard ($title:String!,$owner_id:ID!,$list_id:ID!,$order:Int!) {
         owner{
             id
         }
+        list{
+            id
+        }
     }
 }

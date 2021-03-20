@@ -16,6 +16,9 @@ import {mapState} from 'vuex';
 export default {
     props:{
         list:Object,
+        highestOrder:{
+            type:[Number,String],
+        }
     },
     components:{
         CardEditor
@@ -40,7 +43,7 @@ export default {
                         title: this.title,
                         list_id: this.list.id,
                         owner_id: this.userId,
-                        order: this.list.cards.length + 1
+                        order: this.highestOrder + 1
                     },
                     update: (store , { data : { addCard } }) => {
                         this.$emit("card-added",{

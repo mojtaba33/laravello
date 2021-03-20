@@ -16,6 +16,7 @@ type Mutation {
     addCard(input:addCardInput! @spread): Card! @create @can(ability:"createCard",model:"App\\Models\\CardList",find:"list_id")
     deleteCard(id: ID!): Card! @delete @can(ability:"delete",find:id)
     updateCard(id: ID!,title: String): Card! @update @can(ability:"update",find:id)
+    changeCardOrder(id:ID!,order: Int!): Card! @update @can(ability:"update",find:id)
 
     createList(title:String!,board_id:ID!): CardList! @create @can(ability:"create",injectArgs: true,model:"App\\Models\\CardList")
     deleteList(id:ID!): CardList! @delete @can(ability:"delete",find:id,model:"App\\Models\\CardList")

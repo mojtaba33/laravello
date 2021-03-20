@@ -2,7 +2,6 @@
     <div class="list">
         <loading v-if="loading" class="w-5 h-5 m-auto"></loading>
         <div v-else class="bg-gray-200 p-2 rounded-sm shadow-md mr-3 ">
-
             <div class="flex justify-between items-center w-full ">
                 <h3 class="text-black font-bold text-sm cursor-default">{{ list.title }}</h3>
                 <span @click="deleteList" v-if="isBoardOwner" class="text-gray-400 font-bold text-md hover:text-gray-500 p-1 cursor-pointer">
@@ -12,7 +11,11 @@
                 </span>
             </div>
 
-            <CardItem v-for="card in list.cards" :key="`card-${card.id}`" :card="card" @card-updated="$emit('card-updated',{...$event,list_id:list.id})" @card-deleted="$emit('card-deleted',{...$event,list_id:list.id})"></CardItem>
+            <CardItem v-for="card in orderCards" :key="`card-${card.id}`" :card="card"
+                @card-updated="$emit('card-updated',{...$event,list_id:list.id})"
+                @card-deleted="$emit('card-deleted',{...$event,list_id:list.id})"
+                @card-order="$emit('card-order',{...$event,list_id:list.id})"
+            ></CardItem>
 
             <div v-if="!showCardEditor && isBoardOwner" @click="showCardEditor = true;" class="w-auto p-1 flex justify-start items-center mt-2 rounded-sm bg-transparent text-gray-600 text-left text-sm hover:text-gray-900 cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
@@ -21,7 +24,7 @@
                 <span>Add new card</span>
             </div>
             <div v-if="showCardEditor">
-                <CardAddEditor :list="list" @close-editor="showCardEditor = false"  @card-added="$emit('card-added',{...$event,list_id:list.id})"></CardAddEditor>
+                <CardAddEditor :list="list" :highestOrder="highestOrder" @close-editor="showCardEditor = false"  @card-added="$emit('card-added',{...$event,list_id:list.id})"></CardAddEditor>
             </div>
 
         </div>
@@ -47,7 +50,15 @@ export default {
             isBoardOwner (state) {
                 return state.auth.user.id == this.list.board.owner.id;
             }
-        })
+        }),
+        orderCards()
+        {
+            return this.list.cards.sort( (a,b) => a.order - b.order );
+        },
+        highestOrder()
+        {
+            return this.list.cards.reduce( (a, b) => a.order > b.order ? a.order : b.order );
+        }
     },
     components:{
         CardItem,CardAddEditor
@@ -75,7 +86,7 @@ export default {
             }
             this.loading = false;
         }
-    },
+    }
 }
 </script>
 
