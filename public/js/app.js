@@ -41786,24 +41786,47 @@ var render = function() {
   return _c(
     "nav",
     {
-      staticClass: "flex justify-between text-white py-1 header",
+      staticClass:
+        "flex sm:justify-between flex-row flex-wrap justify-start text-white py-1 header",
       attrs: { id: "nav-bar" }
     },
     [
-      _c("div", { staticClass: "ml-3 w-1/3 flex justify-start items-center" }, [
-        _c(
-          "div",
-          { staticClass: "relative" },
-          [_vm.isLoggedIn ? _c("BoardDropdown") : _vm._e()],
-          1
-        )
-      ]),
+      _c(
+        "div",
+        {
+          staticClass:
+            "sm:w-1/3 w-1/2 pl-2 flex justify-start items-center order-2 sm:order-1"
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "relative" },
+            [
+              _vm.isLoggedIn
+                ? _c("BoardDropdown")
+                : _c(
+                    "button",
+                    {
+                      staticClass: "header-btn",
+                      on: {
+                        click: function($event) {
+                          return _vm.$router.push({ name: "login" })
+                        }
+                      }
+                    },
+                    [_vm._v("Login")]
+                  )
+            ],
+            1
+          )
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
         {
           staticClass:
-            "w-1/3 opacity-70 hover:opacity-100 cursor-pointer flex items-center justify-center",
+            "sm:w-1/3 w-full opacity-70 hover:opacity-100 cursor-pointer flex items-center justify-center order-1 sm:order-2",
           on: {
             click: function($event) {
               _vm.$route.name != "home"
@@ -41817,24 +41840,14 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "w-1/3 mr-3 flex justify-end items-center text-right" },
+        {
+          staticClass:
+            "sm:w-1/3 w-1/2 pr-2 flex justify-end items-center text-right order-3 "
+        },
         [
           _vm.isLoggedIn
             ? _c("ProfileDropdown")
             : _c("div", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "header-btn",
-                    on: {
-                      click: function($event) {
-                        return _vm.$router.push({ name: "login" })
-                      }
-                    }
-                  },
-                  [_vm._v("Login")]
-                ),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
