@@ -40873,7 +40873,7 @@ var render = function() {
                   }
                 ],
                 staticClass:
-                  "px-2 max-h-96 w-64 absolute rounded-sm bg-gray-100 top-8 z-10 shadow-md overflow-y-auto"
+                  "px-2 max-h-96 w-64 absolute rounded-sm bg-gray-100 top-8 z-30 shadow-md overflow-y-auto"
               },
               [
                 _vm.$apollo.queries.userBoards.loading
