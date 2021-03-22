@@ -2,6 +2,7 @@
     <div class="list">
         <loading v-if="loading" class="w-5 h-5 m-auto"></loading>
         <div v-else class="bg-gray-200 p-2 rounded-sm shadow-md mr-3 ">
+{{highestOrder}}
             <div class="flex justify-between items-center w-full ">
                 <h3 class="text-black font-bold text-sm cursor-default">{{ list.title }}</h3>
                 <span @click="deleteList" v-if="isBoardOwner" class="text-gray-400 font-bold text-md hover:text-gray-500 p-1 cursor-pointer">
@@ -53,11 +54,17 @@ export default {
         }),
         orderCards()
         {
-            return this.list.cards.sort( (a,b) => a.order - b.order );
+	    return this.list.cards.sort( (a,b) => a.order - b.order );
         },
         highestOrder()
         {
-            return this.list.cards.reduce( (a, b) => a.order > b.order ? a.order : b.order );
+	    if(this.list?.cards.length == 0)
+	    {
+		return 0;
+	    }else if(this.list?.cards.length == 1){
+	      	return 1;
+	    }
+	    return this.list.cards.reduce( (a, b) => a.order > b.order ? a.order : b.order );
         }
     },
     components:{

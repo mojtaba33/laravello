@@ -8627,6 +8627,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -8653,6 +8654,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     highestOrder: function highestOrder() {
+      var _this$list, _this$list2;
+
+      if (((_this$list = this.list) === null || _this$list === void 0 ? void 0 : _this$list.cards.length) == 0) {
+        return 0;
+      } else if (((_this$list2 = this.list) === null || _this$list2 === void 0 ? void 0 : _this$list2.cards.length) == 1) {
+        return 1;
+      }
+
       return this.list.cards.reduce(function (a, b) {
         return a.order > b.order ? a.order : b.order;
       });
@@ -41609,6 +41618,7 @@ var render = function() {
             "div",
             { staticClass: "bg-gray-200 p-2 rounded-sm shadow-md mr-3 " },
             [
+              _vm._v("\n" + _vm._s(_vm.highestOrder) + "\n            "),
               _c(
                 "div",
                 { staticClass: "flex justify-between items-center w-full " },
