@@ -2,7 +2,6 @@
     <div class="list">
         <loading v-if="loading" class="w-5 h-5 m-auto"></loading>
         <div v-else class="bg-gray-200 p-2 rounded-sm shadow-md mr-3 ">
-{{highestOrder}}
             <div class="flex justify-between items-center w-full ">
                 <h3 class="text-black font-bold text-sm cursor-default">{{ list.title }}</h3>
                 <span @click="deleteList" v-if="isBoardOwner" class="text-gray-400 font-bold text-md hover:text-gray-500 p-1 cursor-pointer">
