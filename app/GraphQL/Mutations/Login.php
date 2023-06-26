@@ -13,7 +13,7 @@ class Login
      */
     public function __invoke($_, array $args)
     {
-        if(!Auth::guard(config('sanctum.guard', 'web'))->attempt($args))
+        if(!Auth::attempt($args))
         {
             return throw new Error('Invalid credentials.');
         }
