@@ -2,8 +2,9 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\User;
 use GraphQL\Error\Error;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Login
 {
@@ -13,11 +14,12 @@ class Login
      */
     public function __invoke($_, array $args)
     {
-        if(!Auth::attempt($args))
+        $user = User::where('email',$args['email'])->first();
+        if($user && Hash::check($args['password'], $user->password))
         {
-            return throw new Error('Invalid credentials.');
+            return auth()->user();
         }
 
-        return auth()->user();
+        return throw new Error('Invalid credentials.');
     }
 }

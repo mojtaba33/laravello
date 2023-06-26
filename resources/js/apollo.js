@@ -5,8 +5,10 @@ import {gqlError} from './utility';
 
 Vue.use(VueApollo)
 
+const {origin} = window.location
+
 const apolloClient = new ApolloClient({
-    uri: 'http://localhost:8000/graphql',
+    uri: `${origin}/graphql`,
     headers: {
         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
     },
