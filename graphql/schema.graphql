@@ -27,7 +27,7 @@ type Mutation {
 
     login(email:String @rules(apply:["required","string"]),password:String @rules(apply:["required","string"])): User!
     logout: User @guard
-    register(input:registerInput! @spread): User! @event(dispatch: "Illuminate\\Auth\\Events\\Registered")
+    register(input:registerInput! @spread): User!
 
 }
 

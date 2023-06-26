@@ -9735,6 +9735,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -9743,7 +9744,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.errors = null;
                 _this.disabled = true;
                 _context.prev = 3;
-                _context.next = 6;
+                console.log('a');
+                _context.next = 7;
                 return _this.$apollo.mutate({
                   mutation: (_graphql_Register_gql__WEBPACK_IMPORTED_MODULE_2___default()),
                   variables: {
@@ -9754,33 +9756,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 6:
+              case 7:
+                data = _context.sent;
+
                 _this.$store.dispatch("auth/setLogin", true);
 
-                _this.$store.dispatch("auth/fetchUser");
+                _context.next = 11;
+                return _this.$store.dispatch("auth/fetchUser");
 
+              case 11:
                 _this.$router.push({
                   name: 'home'
                 });
 
-                _context.next = 14;
+                _context.next = 17;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context["catch"](3);
 
                 _this.errorHandler((0,_utility_js__WEBPACK_IMPORTED_MODULE_1__.gqlError)(_context.t0));
 
-              case 14:
+              case 17:
                 _this.disabled = false;
 
-              case 15:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[3, 11]]);
+        }, _callee, null, [[3, 14]]);
       }))();
     }
   }
@@ -42886,7 +42892,7 @@ var render = function() {
                     staticClass:
                       "py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4",
                     class: { "border-red-300": _vm.inputHasErr("input.email") },
-                    attrs: { type: "text", placeholder: "Enter email" },
+                    attrs: { type: "email", placeholder: "Enter email" },
                     domProps: { value: _vm.email },
                     on: {
                       input: function($event) {

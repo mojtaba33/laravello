@@ -12,7 +12,7 @@
                             <validation-err class="text-left w-5/6 sm:w-3/4 mx-auto" v-if="validationErr" :error="validationErr[`input.name`]"></validation-err>
                     </div>
                     <div class="mt-4 w-full">
-                        <input v-model="email"  type="text"
+                        <input v-model="email"  type="email"
                             class="py-1 px-3 text-sm outline-none focus:outline-none rounded-sm border-gray-200 border-b-2 focus:border-purple-300 transition-colors duration-300 w-5/6 sm:w-3/4"
                             placeholder="Enter email" :class="{'border-red-300': inputHasErr('input.email') }">
                             <validation-err class="text-left w-5/6 sm:w-3/4 mx-auto" v-if="validationErr" :error="validationErr[`input.email`]"></validation-err>
@@ -67,7 +67,8 @@ export default {
             this.disabled = true;
 
             try {
-                await this.$apollo.mutate({
+                console.log('a');
+                let data = await this.$apollo.mutate({
                     mutation : registerQuery,
                     variables:{
                         name:this.name,
@@ -76,9 +77,10 @@ export default {
                         password_confirmation:this.password_confirmation,
                     }
                 });
-                this.$store.dispatch("auth/setLogin",true);
-                this.$store.dispatch("auth/fetchUser");
-                this.$router.push({name:'home'});
+
+                this.$store.dispatch("auth/setLogin", true);
+                await this.$store.dispatch("auth/fetchUser");
+                this.$router.push({ name: 'home' });
             } catch (error) {
                 this.errorHandler(gqlError(error));
             }

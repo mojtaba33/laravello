@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\User;
 use GraphQL\Error\Error;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class Login
 {
@@ -14,12 +14,12 @@ class Login
      */
     public function __invoke($_, array $args)
     {
-        $user = User::where('email',$args['email'])->first();
-        if($user && Hash::check($args['password'], $user->password))
-        {
-            return auth()->user();
+        $guard = Auth::guard(Arr::first(config('sanctum.guard')));
+
+        if (!$guard->attempt($args)) {
+            throw new Error('Invalid credentials.');
         }
 
-        return throw new Error('Invalid credentials.');
+        return $guard->user();
     }
 }
