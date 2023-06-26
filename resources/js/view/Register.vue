@@ -67,8 +67,7 @@ export default {
             this.disabled = true;
 
             try {
-                console.log('a');
-                let data = await this.$apollo.mutate({
+                await this.$apollo.mutate({
                     mutation : registerQuery,
                     variables:{
                         name:this.name,

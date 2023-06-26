@@ -3,6 +3,8 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\User;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,6 +21,8 @@ class Register
             'email' => $args['email'],
             'password' => Hash::make($args['password'])
         ]);
+
+        Auth::guard(Arr::first(config('sanctum.guard')))->login($user);
 
         return $user;
     }

@@ -9735,7 +9735,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -9744,8 +9743,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.errors = null;
                 _this.disabled = true;
                 _context.prev = 3;
-                console.log('a');
-                _context.next = 7;
+                _context.next = 6;
                 return _this.$apollo.mutate({
                   mutation: (_graphql_Register_gql__WEBPACK_IMPORTED_MODULE_2___default()),
                   variables: {
@@ -9756,37 +9754,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 7:
-                data = _context.sent;
-
+              case 6:
                 _this.$store.dispatch("auth/setLogin", true);
 
-                _context.next = 11;
+                _context.next = 9;
                 return _this.$store.dispatch("auth/fetchUser");
 
-              case 11:
+              case 9:
                 _this.$router.push({
                   name: 'home'
                 });
 
-                _context.next = 17;
+                _context.next = 15;
                 break;
 
-              case 14:
-                _context.prev = 14;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](3);
 
                 _this.errorHandler((0,_utility_js__WEBPACK_IMPORTED_MODULE_1__.gqlError)(_context.t0));
 
-              case 17:
+              case 15:
                 _this.disabled = false;
 
-              case 18:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[3, 14]]);
+        }, _callee, null, [[3, 12]]);
       }))();
     }
   }
